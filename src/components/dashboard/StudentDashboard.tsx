@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flame, Zap, Award, Target, TrendingUp, Users, ArrowRight } from 'lucide-react';
+import { Flame, Zap, Award, Target, TrendingUp, Users, ArrowRight, CheckCircle2, Calendar } from 'lucide-react';
 import { StudentProfile, SkillNode } from '../../types';
 
 interface StudentDashboardProps {
@@ -17,88 +17,96 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
   const availableTopics = skills.filter(s => s.status === 'available' || s.status === 'in_progress');
 
   return (
-    <div className="max-w-5xl mx-auto py-6 px-4 space-y-6">
+    <div className="max-w-5xl mx-auto py-8 px-4 space-y-8">
       {/* Student Hero Header */}
-      <div className="p-6 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800 rounded-3xl flex flex-wrap items-center justify-between gap-4 shadow-xl">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <h1 className="text-2xl font-black text-white">{profile.name}</h1>
-            <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+      <div className="p-8 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800/80 rounded-3xl flex flex-wrap items-center justify-between gap-6 shadow-2xl shadow-indigo-950/20">
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-black text-white tracking-tight">{profile.name}</h1>
+            <span className="px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
               {profile.grade} класс
             </span>
           </div>
-          <p className="text-xs text-slate-400">
-            Цель: <strong className="text-slate-200">ЕГЭ Профиль (Математика)</strong> • Центр «МКурсы»
+          <p className="text-xs text-slate-400 font-medium">
+            Целевой экзамен: <strong className="text-slate-200">ЕГЭ Профиль (Математика)</strong> • Центр «МКурсы»
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4 bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80">
           <div className="text-right">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Прогноз балла ЕГЭ</span>
+            <span className="text-[11px] text-slate-400 uppercase tracking-wider font-bold">Прогноз балла ЕГЭ</span>
             <div className="text-3xl font-black text-emerald-400 flex items-center justify-end gap-1">
-              {profile.forecastScore} <span className="text-xs font-normal text-slate-400">/ 100</span>
+              {profile.forecastScore} <span className="text-sm font-medium text-slate-400">/ 100</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl">
-          <div className="flex items-center gap-2 text-amber-400 mb-1">
-            <Flame className="w-4 h-4 fill-amber-400" />
-            <span className="text-xs font-bold uppercase">Стрик</span>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+        <div className="p-6 bg-slate-900/70 border border-slate-800/80 rounded-2xl space-y-2 hover:border-amber-500/40 transition-colors">
+          <div className="flex items-center gap-2 text-amber-400">
+            <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20">
+              <Flame className="w-5 h-5 fill-amber-400" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider">Стрик</span>
           </div>
-          <div className="text-2xl font-black text-white">{profile.streakDays} дней</div>
-          <p className="text-[10px] text-slate-400 mt-1">Регулярные занятия без пропусков</p>
+          <div className="text-3xl font-black text-white">{profile.streakDays} дней</div>
+          <p className="text-xs text-slate-400">Регулярные занятия без пропусков</p>
         </div>
 
-        <div className="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl">
-          <div className="flex items-center gap-2 text-indigo-400 mb-1">
-            <Zap className="w-4 h-4 fill-indigo-400" />
-            <span className="text-xs font-bold uppercase">Опыт XP</span>
+        <div className="p-6 bg-slate-900/70 border border-slate-800/80 rounded-2xl space-y-2 hover:border-indigo-500/40 transition-colors">
+          <div className="flex items-center gap-2 text-indigo-400">
+            <div className="p-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
+              <Zap className="w-5 h-5 fill-indigo-400" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider">Опыт XP</span>
           </div>
-          <div className="text-2xl font-black text-white">{profile.totalXp} XP</div>
-          <p className="text-[10px] text-slate-400 mt-1">За решенные формулы и квизы</p>
+          <div className="text-3xl font-black text-white">{profile.totalXp} XP</div>
+          <p className="text-xs text-slate-400">За решенные формулы и квизы</p>
         </div>
 
-        <div className="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl">
-          <div className="flex items-center gap-2 text-emerald-400 mb-1">
-            <Award className="w-4 h-4 text-emerald-400" />
-            <span className="text-xs font-bold uppercase">Темы</span>
+        <div className="p-6 bg-slate-900/70 border border-slate-800/80 rounded-2xl space-y-2 hover:border-emerald-500/40 transition-colors">
+          <div className="flex items-center gap-2 text-emerald-400">
+            <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+              <Award className="w-5 h-5 text-emerald-400" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider">Темы</span>
           </div>
-          <div className="text-2xl font-black text-white">{masteredCount} / {skills.length}</div>
-          <p className="text-[10px] text-slate-400 mt-1">Освоено разделов курса</p>
+          <div className="text-3xl font-black text-white">{masteredCount} / {skills.length}</div>
+          <p className="text-xs text-slate-400">Освоено разделов курса</p>
         </div>
 
-        <div className="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl">
-          <div className="flex items-center gap-2 text-purple-400 mb-1">
-            <Target className="w-4 h-4 text-purple-400" />
-            <span className="text-xs font-bold uppercase">Готовность</span>
+        <div className="p-6 bg-slate-900/70 border border-slate-800/80 rounded-2xl space-y-2 hover:border-purple-500/40 transition-colors">
+          <div className="flex items-center gap-2 text-purple-400">
+            <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20">
+              <Target className="w-5 h-5 text-purple-400" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider">Готовность</span>
           </div>
-          <div className="text-2xl font-black text-white">
+          <div className="text-3xl font-black text-white">
             {Math.round((masteredCount / Math.max(1, skills.length)) * 100)}%
           </div>
-          <p className="text-[10px] text-slate-400 mt-1">По кодификатору ФИПИ</p>
+          <p className="text-xs text-slate-400">По кодификатору ФИПИ</p>
         </div>
       </div>
 
       {/* Recommended Topics & Parent Card Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Recommended Next Topics */}
-        <div className="p-5 bg-slate-900/80 border border-slate-800 rounded-2xl space-y-3">
-          <h3 className="text-sm font-bold text-white flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-indigo-400" /> Рекомендуемые темы для изучения
+        <div className="p-6 bg-slate-900/70 border border-slate-800/80 rounded-3xl space-y-4">
+          <h3 className="text-base font-bold text-white flex items-center gap-2.5">
+            <TrendingUp className="w-5 h-5 text-indigo-400" /> Рекомендуемые темы для изучения
           </h3>
-          <div className="space-y-2">
+          <div className="space-y-3">
             {availableTopics.slice(0, 3).map(topic => (
               <div
                 key={topic.id}
                 onClick={() => onOpenTopic(topic)}
-                className="p-3 bg-slate-950/70 border border-slate-800 hover:border-indigo-500/50 rounded-xl flex items-center justify-between cursor-pointer transition-colors"
+                className="p-4 bg-slate-950/70 border border-slate-800/80 hover:border-indigo-500/50 rounded-2xl flex items-center justify-between cursor-pointer transition-all hover:translate-x-1"
               >
                 <div>
-                  <h4 className="text-xs font-semibold text-slate-200">{topic.title}</h4>
-                  <span className="text-[10px] text-slate-400">{topic.grade} класс • +{topic.xpReward} XP</span>
+                  <h4 className="text-sm font-bold text-slate-200">{topic.title}</h4>
+                  <span className="text-xs text-slate-400">{topic.grade} класс • +{topic.xpReward} XP</span>
                 </div>
                 <ArrowRight className="w-4 h-4 text-indigo-400" />
               </div>
@@ -107,27 +115,27 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
         </div>
 
         {/* Parent Summary Card */}
-        <div className="p-5 bg-slate-900/80 border border-slate-800 rounded-2xl space-y-3">
-          <h3 className="text-sm font-bold text-white flex items-center gap-2">
-            <Users className="w-4 h-4 text-amber-400" /> Сводка успеваемости для родителей
+        <div className="p-6 bg-slate-900/70 border border-slate-800/80 rounded-3xl space-y-4">
+          <h3 className="text-base font-bold text-white flex items-center gap-2.5">
+            <Users className="w-5 h-5 text-amber-400" /> Сводка успеваемости для родителей
           </h3>
-          <div className="p-3 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2 text-xs text-slate-300">
-            <div className="flex justify-between">
-              <span>Сдано домашних заданий:</span>
-              <strong className="text-emerald-400">100% вовремя</strong>
+          <div className="p-4 bg-slate-950/70 border border-slate-800/80 rounded-2xl space-y-3 text-xs text-slate-300">
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> Сдано домашних заданий:</span>
+              <strong className="text-emerald-400 font-bold">100% вовремя</strong>
             </div>
-            <div className="flex justify-between">
-              <span>Посещаемость занятий:</span>
-              <strong className="text-slate-100">8 из 8 уроков</strong>
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4 text-indigo-400" /> Посещаемость занятий:</span>
+              <strong className="text-slate-100 font-bold">8 из 8 уроков</strong>
             </div>
-            <div className="flex justify-between">
-              <span>Текущая динамика:</span>
-              <strong className="text-emerald-400">+14 баллов за месяц</strong>
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-1.5"><TrendingUp className="w-4 h-4 text-emerald-400" /> Текущая динамика:</span>
+              <strong className="text-emerald-400 font-bold">+14 баллов за месяц</strong>
             </div>
           </div>
           <button
             type="button"
-            className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 rounded-xl transition-colors border border-slate-700"
+            className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 rounded-2xl transition-colors border border-slate-700"
           >
             Связаться с куратором «МКурсы»
           </button>

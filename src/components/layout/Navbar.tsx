@@ -1,5 +1,5 @@
 import React from 'react';
-import { Compass, LayoutDashboard, Edit3, Flame, Zap, UserCheck } from 'lucide-react';
+import { Compass, LayoutDashboard, Edit3, Flame, Zap, UserCheck, GraduationCap } from 'lucide-react';
 import { StudentProfile } from '../../types';
 
 interface NavbarProps {
@@ -18,90 +18,101 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleTeacherMode,
 }) => {
   return (
-    <header className="sticky top-0 z-40 w-full bg-slate-950/90 border-b border-slate-800 backdrop-blur-md select-none">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-        {/* Brand / Logo */}
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => onViewChange('tree')}>
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 p-0.5 shadow-md shadow-indigo-500/20 flex items-center justify-center overflow-hidden">
+    <header className="sticky top-0 z-40 w-full bg-slate-950/80 border-b border-slate-800/80 backdrop-blur-xl select-none transition-all">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+        {/* Brand & Logo */}
+        <div
+          className="flex items-center gap-3.5 cursor-pointer group"
+          onClick={() => onViewChange('tree')}
+        >
+          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/80 p-2 shadow-lg shadow-indigo-500/10 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105">
             <img
-              src="/assets/logo-m.png"
+              src="/assets/logo-icon.png"
               alt="МКурсы"
-              className="w-full h-full object-contain"
-              onError={e => {
-                // Fallback text if image cannot be loaded
-                (e.currentTarget as HTMLElement).style.display = 'none';
-              }}
+              className="w-full h-full object-contain filter drop-shadow"
             />
-            <span className="font-extrabold text-white text-lg">М</span>
           </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-lg tracking-tight text-white">МКурсы</span>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 bg-indigo-500/20 text-indigo-300 rounded border border-indigo-500/30">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-indigo-300 transition-colors">
+                МКурсы
+              </span>
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-indigo-500/15 text-indigo-300 rounded-full border border-indigo-500/30">
                 LMS
               </span>
             </div>
-            <p className="text-[10px] text-slate-400 font-medium">Центр математики (5–11 кл)</p>
+            <p className="text-[11px] text-slate-400 font-medium">
+              Центр дополнительного образования
+            </p>
           </div>
         </div>
 
         {/* Navigation Tabs */}
-        <nav className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+        <nav className="flex items-center gap-1.5 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800/80 shadow-inner">
           <button
             onClick={() => onViewChange('tree')}
-            className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all ${
+            className={`px-4 py-2 text-xs font-semibold rounded-xl flex items-center gap-2 transition-all ${
               currentView === 'tree'
-                ? 'bg-indigo-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
             }`}
           >
-            <Compass className="w-3.5 h-3.5" /> Карта знаний
+            <Compass className="w-4 h-4 text-indigo-300" />
+            Карта знаний
           </button>
           <button
             onClick={() => onViewChange('dashboard')}
-            className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all ${
+            className={`px-4 py-2 text-xs font-semibold rounded-xl flex items-center gap-2 transition-all ${
               currentView === 'dashboard'
-                ? 'bg-indigo-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
             }`}
           >
-            <LayoutDashboard className="w-3.5 h-3.5" /> Личный кабинет
+            <LayoutDashboard className="w-4 h-4 text-emerald-300" />
+            Личный кабинет
           </button>
           <button
             onClick={() => onViewChange('editor')}
-            className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all ${
+            className={`px-4 py-2 text-xs font-semibold rounded-xl flex items-center gap-2 transition-all ${
               currentView === 'editor'
-                ? 'bg-indigo-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
             }`}
           >
-            <Edit3 className="w-3.5 h-3.5" /> Конструктор
+            <Edit3 className="w-4 h-4 text-amber-300" />
+            Конструктор
           </button>
         </nav>
 
         {/* User Stats & Mode Switcher */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl text-xs font-bold">
-            <span className="flex items-center gap-1 text-amber-400" title="Стрик активности (дней подряд)">
-              <Flame className="w-4 h-4 fill-amber-400" /> {profile.streakDays} дн
-            </span>
-            <span className="w-px h-3.5 bg-slate-700" />
-            <span className="flex items-center gap-1 text-indigo-400" title="Набранный опыт (XP)">
-              <Zap className="w-4 h-4 fill-indigo-400" /> {profile.totalXp} XP
-            </span>
+        <div className="flex items-center gap-3.5">
+          <div className="flex items-center gap-3 bg-slate-900/90 border border-slate-800/80 px-4 py-2 rounded-2xl text-xs font-bold shadow-sm">
+            <div className="flex items-center gap-1.5 text-amber-400" title="Стрик активности (дней подряд)">
+              <Flame className="w-4 h-4 fill-amber-400 text-amber-400" />
+              <span>{profile.streakDays} дн</span>
+            </div>
+            <span className="w-px h-4 bg-slate-800" />
+            <div className="flex items-center gap-1.5 text-indigo-400" title="Набранный опыт (XP)">
+              <Zap className="w-4 h-4 fill-indigo-400 text-indigo-400" />
+              <span>{profile.totalXp} XP</span>
+            </div>
           </div>
 
           <button
             onClick={onToggleTeacherMode}
-            className={`px-3 py-1.5 rounded-xl border text-xs font-medium flex items-center gap-1.5 transition-colors ${
+            className={`px-3.5 py-2 rounded-2xl border text-xs font-semibold flex items-center gap-2 transition-all ${
               isTeacherMode
-                ? 'bg-purple-950/60 border-purple-500/50 text-purple-200'
-                : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                ? 'bg-purple-950/60 border-purple-500/50 text-purple-200 shadow-md shadow-purple-950/40'
+                : 'bg-slate-900/90 border-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-800/60'
             }`}
-            title="Переключить интерфейс"
+            title="Переключить режим интерфейса"
           >
-            <UserCheck className="w-3.5 h-3.5" />
-            {isTeacherMode ? 'Преподаватель' : 'Ученик'}
+            {isTeacherMode ? (
+              <UserCheck className="w-4 h-4 text-purple-400" />
+            ) : (
+              <GraduationCap className="w-4 h-4 text-indigo-400" />
+            )}
+            <span>{isTeacherMode ? 'Преподаватель' : 'Ученик'}</span>
           </button>
         </div>
       </div>

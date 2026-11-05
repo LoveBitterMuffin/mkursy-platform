@@ -74,70 +74,76 @@ export const BlockEditorList: React.FC<BlockEditorListProps> = ({ blocks, onChan
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-2 p-2 bg-slate-900 border border-slate-800 rounded-xl">
-        <span className="text-xs font-semibold text-slate-400 mr-1 flex items-center gap-1">
-          <Plus className="w-3.5 h-3.5" /> Добавить:
+      <div className="flex flex-wrap items-center gap-2 p-2.5 bg-slate-900 border border-slate-800/80 rounded-2xl shadow-sm">
+        <span className="text-xs font-bold text-slate-400 mr-2 flex items-center gap-1.5 pl-1">
+          <Plus className="w-4 h-4 text-indigo-400" /> Добавить:
         </span>
         <button
           type="button"
           onClick={() => addBlock('text')}
-          className="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg flex items-center gap-1"
+          className="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
         >
-          <Type className="w-3 h-3 text-indigo-400" /> Текст
+          <Type className="w-3.5 h-3.5 text-indigo-400" /> Текст
         </button>
         <button
           type="button"
           onClick={() => addBlock('math')}
-          className="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg flex items-center gap-1"
+          className="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
         >
-          <Sigma className="w-3 h-3 text-emerald-400" /> Формулу
+          <Sigma className="w-3.5 h-3.5 text-emerald-400" /> Формулу
         </button>
         <button
           type="button"
           onClick={() => addBlock('plot')}
-          className="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg flex items-center gap-1"
+          className="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
         >
-          <LineChart className="w-3 h-3 text-amber-400" /> График
+          <LineChart className="w-3.5 h-3.5 text-amber-400" /> График
         </button>
         <button
           type="button"
           onClick={() => addBlock('quiz')}
-          className="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg flex items-center gap-1"
+          className="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
         >
-          <HelpCircle className="w-3 h-3 text-purple-400" /> Квиз
+          <HelpCircle className="w-3.5 h-3.5 text-purple-400" /> Квиз
         </button>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3.5">
         {blocks.map((block, idx) => (
-          <div key={block.id} className="p-3 bg-slate-900/90 border border-slate-800 rounded-xl space-y-2">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-              <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">
-                #{idx + 1} {block.type}
+          <div key={block.id} className="p-4 bg-slate-900/90 border border-slate-800/80 rounded-2xl space-y-3 shadow-sm">
+            <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+              <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-5 h-5 rounded-lg bg-indigo-500/10 flex items-center justify-center text-[10px] text-indigo-300 font-mono">
+                  {idx + 1}
+                </span>
+                {block.type}
               </span>
               <div className="flex items-center gap-1">
                 <button
                   type="button"
                   disabled={idx === 0}
                   onClick={() => moveBlock(idx, 'up')}
-                  className="p-1 text-slate-400 hover:text-white disabled:opacity-30 rounded hover:bg-slate-800"
+                  className="p-1.5 text-slate-400 hover:text-white disabled:opacity-25 rounded-lg hover:bg-slate-800 transition-colors"
+                  title="Поднять выше"
                 >
-                  <ChevronUp className="w-3.5 h-3.5" />
+                  <ChevronUp className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
                   disabled={idx === blocks.length - 1}
                   onClick={() => moveBlock(idx, 'down')}
-                  className="p-1 text-slate-400 hover:text-white disabled:opacity-30 rounded hover:bg-slate-800"
+                  className="p-1.5 text-slate-400 hover:text-white disabled:opacity-25 rounded-lg hover:bg-slate-800 transition-colors"
+                  title="Опустить ниже"
                 >
-                  <ChevronDown className="w-3.5 h-3.5" />
+                  <ChevronDown className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
                   onClick={() => deleteBlock(idx)}
-                  className="p-1 text-rose-400 hover:text-rose-300 rounded hover:bg-rose-500/10 ml-1"
+                  className="p-1.5 text-rose-400 hover:text-rose-300 rounded-lg hover:bg-rose-500/10 transition-colors ml-1"
+                  title="Удалить блок"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  <Trash2 className="w-4 h-4" />
                 </button>
               </div>
             </div>

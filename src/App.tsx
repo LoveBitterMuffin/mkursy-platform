@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Sparkles, Compass } from 'lucide-react';
 import { initialSkills, initialProfile } from './data/initialData';
 import { sampleParabolaLesson } from './data/sampleLessons';
 import { SkillNode, Lesson, StudentProfile } from './types';
@@ -17,7 +18,6 @@ export const App: React.FC = () => {
   const [isTeacherMode, setIsTeacherMode] = useState<boolean>(false);
 
   const handleOpenLesson = (lessonId: string) => {
-    // In MVP, we link sampleParabolaLesson or matching lesson
     if (lessonId === 'lesson-parabola' || currentLesson.id === lessonId) {
       setCurrentLesson(sampleParabolaLesson);
     }
@@ -58,7 +58,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30">
       <Navbar
         currentView={currentView === 'player' ? 'tree' : currentView}
         onViewChange={view => setCurrentView(view)}
@@ -72,15 +72,24 @@ export const App: React.FC = () => {
         }}
       />
 
-      <main className="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6">
+      <main className="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         {currentView === 'tree' && (
-          <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <h2 className="text-xl font-extrabold text-white">Интерактивная карта знаний «МКурсы»</h2>
-                <p className="text-xs text-slate-400">
-                  Созвездия математических навыков 5–11 классов. Осваивайте темы, чтобы открывать продвинутые задачи ОГЭ/ЕГЭ.
+          <div className="space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/40 p-5 rounded-3xl border border-slate-800/60">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-xs font-bold text-indigo-400 uppercase tracking-wider">
+                  <Compass className="w-4 h-4" /> Навигация по математике
+                </div>
+                <h2 className="text-2xl font-black text-white tracking-tight">
+                  Интерактивная карта знаний «МКурсы»
+                </h2>
+                <p className="text-xs text-slate-400 max-w-2xl font-medium">
+                  Созвездия тем 5–11 классов. Осваивайте фундаментальные темы, чтобы открывать олимпиадные задачи и задания второй части ЕГЭ.
                 </p>
+              </div>
+              <div className="flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/30 px-3.5 py-2 rounded-2xl text-xs font-bold text-indigo-300">
+                <Sparkles className="w-4 h-4 text-indigo-400" />
+                <span>{skills.filter(s => s.status === 'mastered').length} из {skills.length} освоено</span>
               </div>
             </div>
             <SkillTree skills={skills} onOpenLesson={handleOpenLesson} />

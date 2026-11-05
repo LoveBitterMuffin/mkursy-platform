@@ -3,6 +3,21 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Onest', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+      },
+      borderRadius: {
+        '2.5xl': '1.25rem',
+        '3xl': '1.5rem',
+        '4xl': '2rem',
+        '5xl': '2.5rem',
+      },
+      boxShadow: {
+        'glow-indigo': '0 0 35px -5px rgba(99, 102, 241, 0.25)',
+        'glow-emerald': '0 0 35px -5px rgba(16, 185, 129, 0.25)',
+        'glow-amber': '0 0 35px -5px rgba(245, 158, 11, 0.25)',
+      },
       colors: {
         'brand-dark': '#0B132B',
         'brand-navy': '#1C2541',

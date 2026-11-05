@@ -29,19 +29,22 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
   ];
 
   return (
-    <div className="relative w-full h-[640px] bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col">
-      {/* Top Filter Bar */}
-      <div className="absolute top-4 left-4 right-4 z-30 flex flex-wrap items-center justify-between gap-3 pointer-events-none">
-        <div className="flex items-center gap-1.5 p-1.5 bg-slate-900/90 border border-slate-700/80 rounded-xl backdrop-blur-md pointer-events-auto">
-          <Filter className="w-3.5 h-3.5 text-slate-400 ml-2" />
+    <div className="relative w-full h-[680px] bg-slate-950 border border-slate-800/80 rounded-3xl overflow-hidden shadow-2xl shadow-indigo-950/20 flex flex-col">
+      {/* Top Filter & Control Bar */}
+      <div className="absolute top-5 left-5 right-5 z-30 flex flex-wrap items-center justify-between gap-4 pointer-events-none">
+        <div className="flex items-center gap-2 p-2 bg-slate-900/90 border border-slate-700/80 rounded-2xl backdrop-blur-xl shadow-lg pointer-events-auto">
+          <div className="flex items-center gap-1.5 px-2 text-slate-400 font-semibold text-xs">
+            <Filter className="w-4 h-4 text-indigo-400" />
+            <span>Разделы:</span>
+          </div>
           {categories.map(cat => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors ${
+              className={`px-3.5 py-1.5 text-xs font-semibold rounded-xl transition-all ${
                 selectedCategory === cat.id
-                  ? 'bg-indigo-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
               }`}
             >
               {cat.label}
@@ -50,25 +53,25 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
         </div>
 
         {/* Zoom Controls */}
-        <div className="flex items-center gap-1 p-1 bg-slate-900/90 border border-slate-700/80 rounded-xl backdrop-blur-md pointer-events-auto">
+        <div className="flex items-center gap-1.5 p-1.5 bg-slate-900/90 border border-slate-700/80 rounded-2xl backdrop-blur-xl shadow-lg pointer-events-auto">
           <button
             onClick={() => setZoom(z => Math.min(z + 0.15, 1.6))}
-            className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg"
-            title="Увеличить"
+            className="p-2 text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-xl transition-colors"
+            title="Увеличить масштаб"
           >
             <ZoomIn className="w-4 h-4" />
           </button>
           <button
             onClick={() => setZoom(z => Math.max(z - 0.15, 0.6))}
-            className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg"
-            title="Уменьшить"
+            className="p-2 text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-xl transition-colors"
+            title="Уменьшить масштаб"
           >
             <ZoomOut className="w-4 h-4" />
           </button>
           <button
             onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}
-            className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg"
-            title="Сброс"
+            className="p-2 text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-xl transition-colors"
+            title="Сброс масштаба"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
@@ -76,7 +79,7 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
       </div>
 
       {/* Interactive Galaxy Viewport */}
-      <div className="relative flex-1 w-full h-full overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black">
+      <div className="relative flex-1 w-full h-full overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/90 via-slate-950 to-black">
         <div
           className="absolute inset-0 transition-transform duration-200"
           style={{
@@ -98,7 +101,7 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal Detail Drawer */}
       <SkillDetailModal
         skill={selectedSkill}
         allSkills={skills}
