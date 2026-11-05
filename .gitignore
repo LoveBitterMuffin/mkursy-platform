@@ -34,5 +34,5 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 
-# Scratch logs
-scratch/*.log
+# Scratch files
+scratch/

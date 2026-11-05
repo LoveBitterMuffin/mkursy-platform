@@ -2,6 +2,7 @@ import React from 'react';
 import { ChevronUp, ChevronDown, Trash2, Plus, Type, Sigma, LineChart, HelpCircle } from 'lucide-react';
 import { LessonBlock } from '../../types';
 import { BlockForm } from './BlockForm';
+import { createDefaultBlock } from '../../utils/blockFactory';
 
 interface BlockEditorListProps {
   blocks: LessonBlock[];
@@ -11,45 +12,7 @@ interface BlockEditorListProps {
 export const BlockEditorList: React.FC<BlockEditorListProps> = ({ blocks, onChange }) => {
   const addBlock = (type: LessonBlock['type']) => {
     const id = `b_${Date.now()}`;
-    let newBlock: LessonBlock;
-
-    switch (type) {
-      case 'math':
-        newBlock = { id, type: 'math', latex: 'f(x) = x^2' };
-        break;
-      case 'plot':
-        newBlock = {
-          id,
-          type: 'plot',
-          title: 'График функции',
-          fnExpression: 'a * x^2 + b * x + c',
-          params: [
-            { name: 'a', label: 'Коэффициент a', min: -5, max: 5, step: 0.5, value: 1 },
-            { name: 'b', label: 'Коэффициент b', min: -5, max: 5, step: 0.5, value: 0 },
-            { name: 'c', label: 'Коэффициент c', min: -5, max: 5, step: 0.5, value: 0 },
-          ],
-        };
-        break;
-      case 'quiz':
-        newBlock = {
-          id,
-          type: 'quiz',
-          question: 'Вопрос по пройденной теме?',
-          options: ['Вариант A', 'Вариант B', 'Вариант C'],
-          correctOptionIndex: 0,
-          hints: ['Подсказка к задаче'],
-          explanation: 'Объяснение решения',
-        };
-        break;
-      case 'video':
-        newBlock = { id, type: 'video', title: 'Видеоразбор', url: 'https://youtube.com', durationMinutes: 10 };
-        break;
-      case 'text':
-      default:
-        newBlock = { id, type: 'text', content: 'Новый текстовый параграф с формулой $x^2$.', calloutType: 'info' };
-        break;
-    }
-
+    const newBlock = createDefaultBlock(type, id);
     onChange([...blocks, newBlock]);
   };
 
@@ -81,28 +44,28 @@ export const BlockEditorList: React.FC<BlockEditorListProps> = ({ blocks, onChan
         <button
           type="button"
           onClick={() => addBlock('text')}
-          className="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
         >
           <Type className="w-3.5 h-3.5 text-indigo-400" /> Текст
         </button>
         <button
           type="button"
           onClick={() => addBlock('math')}
-          className="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
         >
           <Sigma className="w-3.5 h-3.5 text-emerald-400" /> Формулу
         </button>
         <button
           type="button"
           onClick={() => addBlock('plot')}
-          className="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
         >
           <LineChart className="w-3.5 h-3.5 text-amber-400" /> График
         </button>
         <button
           type="button"
           onClick={() => addBlock('quiz')}
-          className="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
         >
           <HelpCircle className="w-3.5 h-3.5 text-purple-400" /> Квиз
         </button>
@@ -123,8 +86,9 @@ export const BlockEditorList: React.FC<BlockEditorListProps> = ({ blocks, onChan
                   type="button"
                   disabled={idx === 0}
                   onClick={() => moveBlock(idx, 'up')}
-                  className="p-1.5 text-slate-400 hover:text-white disabled:opacity-25 rounded-lg hover:bg-slate-800 transition-colors"
+                  className="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-white disabled:opacity-25 rounded-xl hover:bg-slate-800 transition-colors flex items-center justify-center"
                   title="Поднять выше"
+                  aria-label="Поднять блок выше"
                 >
                   <ChevronUp className="w-4 h-4" />
                 </button>
@@ -132,16 +96,18 @@ export const BlockEditorList: React.FC<BlockEditorListProps> = ({ blocks, onChan
                   type="button"
                   disabled={idx === blocks.length - 1}
                   onClick={() => moveBlock(idx, 'down')}
-                  className="p-1.5 text-slate-400 hover:text-white disabled:opacity-25 rounded-lg hover:bg-slate-800 transition-colors"
+                  className="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-white disabled:opacity-25 rounded-xl hover:bg-slate-800 transition-colors flex items-center justify-center"
                   title="Опустить ниже"
+                  aria-label="Опустить блок ниже"
                 >
                   <ChevronDown className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
                   onClick={() => deleteBlock(idx)}
-                  className="p-1.5 text-rose-400 hover:text-rose-300 rounded-lg hover:bg-rose-500/10 transition-colors ml-1"
+                  className="min-h-[44px] min-w-[44px] p-2 text-rose-400 hover:text-rose-300 rounded-xl hover:bg-rose-500/10 transition-colors ml-1 flex items-center justify-center"
                   title="Удалить блок"
+                  aria-label="Удалить блок"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>

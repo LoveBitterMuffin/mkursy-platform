@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, Play, Lock, Check, Award, Clock } from 'lucide-react';
 import { SkillNode } from '../../types';
 
@@ -15,17 +15,33 @@ export const SkillDetailModal: React.FC<SkillDetailModalProps> = ({
   onClose,
   onOpenLesson,
 }) => {
+  useEffect(() => {
+    if (!skill) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [skill, onClose]);
+
   if (!skill) return null;
 
   const nodeMap = new Map<string, SkillNode>(allSkills.map(s => [s.id, s]));
   const isLocked = skill.status === 'locked';
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-700/80 w-full max-w-md rounded-3xl p-8 shadow-2xl shadow-indigo-950/40 relative animate-in fade-in zoom-in-95 duration-200">
+    <div
+      className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
+      onClick={onClose}
+    >
+      <div
+        className="bg-slate-900 border border-slate-700/80 w-full max-w-md rounded-3xl p-8 shadow-2xl relative"
+        onClick={e => e.stopPropagation()}
+      >
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-2xl hover:bg-slate-800 transition-colors"
+          aria-label="Закрыть окно темы"
+          className="absolute top-4 right-4 text-slate-400 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center rounded-2xl hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
         >
           <X className="w-5 h-5" />
         </button>
@@ -94,10 +110,10 @@ export const SkillDetailModal: React.FC<SkillDetailModalProps> = ({
             }
           }}
           disabled={isLocked}
-          className={`w-full py-4 rounded-2xl text-sm font-bold flex items-center justify-center gap-2 transition-all ${
+          className={`w-full min-h-[48px] py-3.5 rounded-2xl text-sm font-bold flex items-center justify-center gap-2 transition-all ${
             isLocked
               ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700'
-              : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 hover:scale-[1.02]'
+              : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 hover:scale-[1.01]'
           }`}
         >
           {isLocked ? (

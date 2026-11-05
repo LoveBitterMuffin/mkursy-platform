@@ -21,7 +21,7 @@ export const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onBack, onFi
 
   const handleCompleteLesson = () => {
     setIsFinished(true);
-    onFinish(earnedXp + 50); // 50 XP completion bonus
+    onFinish(earnedXp + 50);
   };
 
   const getCalloutStyles = (type?: string) => {
@@ -40,11 +40,12 @@ export const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onBack, onFi
 
   return (
     <div className="max-w-3xl mx-auto py-10 px-4 space-y-8">
-      {/* Top Header Card */}
       <div className="p-4 bg-slate-900/70 border border-slate-800/80 rounded-2xl flex items-center justify-between shadow-lg">
         <button
+          type="button"
           onClick={onBack}
-          className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-colors py-2 px-3.5 rounded-xl hover:bg-slate-800/80"
+          className="min-h-[44px] flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-colors py-2 px-3.5 rounded-xl hover:bg-slate-800/80"
+          aria-label="Назад к карте знаний"
         >
           <ArrowLeft className="w-4 h-4" /> Назад к карте знаний
         </button>
@@ -58,7 +59,6 @@ export const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onBack, onFi
         </div>
       </div>
 
-      {/* Lesson Title & Description */}
       <div className="space-y-3">
         <div className="flex items-center gap-2 text-xs text-indigo-400 font-bold uppercase tracking-wider">
           <BookOpen className="w-4 h-4" /> Интерактивный урок
@@ -71,7 +71,6 @@ export const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onBack, onFi
         </p>
       </div>
 
-      {/* Content Blocks */}
       <div className="space-y-6 pt-2">
         {lesson.blocks.map(block => {
           if (block.type === 'text') {
@@ -107,12 +106,12 @@ export const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onBack, onFi
         })}
       </div>
 
-      {/* Completion Button */}
       <div className="pt-8 border-t border-slate-800">
         <button
+          type="button"
           onClick={handleCompleteLesson}
           disabled={isFinished}
-          className={`w-full py-4.5 rounded-2xl text-base font-bold flex items-center justify-center gap-2.5 transition-all shadow-xl ${
+          className={`w-full min-h-[52px] py-4 rounded-2xl text-base font-bold flex items-center justify-center gap-2.5 transition-all shadow-xl ${
             isFinished
               ? 'bg-emerald-950/80 border border-emerald-500 text-emerald-200'
               : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/30 hover:scale-[1.01]'

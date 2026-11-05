@@ -26,8 +26,7 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({ lesson }) => {
 
   return (
     <div className="flex flex-col h-full bg-slate-950 border border-slate-800/80 rounded-3xl overflow-hidden shadow-xl">
-      {/* Top Device Bar */}
-      <div className="flex items-center justify-between px-6 py-3.5 bg-slate-900/90 border-b border-slate-800/80">
+      <div className="flex items-center justify-between px-6 py-3 bg-slate-900/90 border-b border-slate-800/80">
         <span className="text-xs font-bold text-slate-300">
           Предпросмотр для ученика (Live Preview)
         </span>
@@ -35,7 +34,7 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({ lesson }) => {
           <button
             type="button"
             onClick={() => setDevice('desktop')}
-            className={`px-3 py-1.5 text-xs font-semibold rounded-xl flex items-center gap-2 transition-all ${
+            className={`min-h-[44px] px-3.5 py-2 text-xs font-semibold rounded-xl flex items-center gap-2 transition-all ${
               device === 'desktop' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -44,7 +43,7 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({ lesson }) => {
           <button
             type="button"
             onClick={() => setDevice('mobile')}
-            className={`px-3 py-1.5 text-xs font-semibold rounded-xl flex items-center gap-2 transition-all ${
+            className={`min-h-[44px] px-3.5 py-2 text-xs font-semibold rounded-xl flex items-center gap-2 transition-all ${
               device === 'mobile' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -53,7 +52,6 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({ lesson }) => {
         </div>
       </div>
 
-      {/* Content Viewport */}
       <div className="flex-1 overflow-y-auto p-6 flex justify-center bg-slate-950/80">
         <div
           className={`w-full transition-all duration-300 ${
