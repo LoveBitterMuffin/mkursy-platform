@@ -39,4 +39,18 @@ describe('LessonEditor Split-View Component', () => {
 
     expect(mobileBtn).toHaveClass('bg-indigo-600');
   });
+
+  it('switches between split, editor-only, and preview-only modes', () => {
+    const onSave = vi.fn();
+    const onBack = vi.fn();
+    render(<LessonEditor initialLesson={sampleParabolaLesson} onSave={onSave} onBack={onBack} />);
+
+    const editorOnlyBtn = screen.getByRole('button', { name: /Редактор/i });
+    fireEvent.click(editorOnlyBtn);
+    expect(editorOnlyBtn).toHaveClass('bg-indigo-600');
+
+    const previewOnlyBtn = screen.getByRole('button', { name: /Превью/i });
+    fireEvent.click(previewOnlyBtn);
+    expect(previewOnlyBtn).toHaveClass('bg-indigo-600');
+  });
 });

@@ -2,12 +2,10 @@ import React from 'react';
 import { LessonBlock } from '../../types';
 import { MathSymbolPalette } from '../math/MathSymbolPalette';
 
-interface BlockFormProps {
-  block: LessonBlock;
-  onChange: (updated: LessonBlock) => void;
-}
-
-export const BlockForm: React.FC<BlockFormProps> = ({ block, onChange }) => {
+export const BlockForm: React.FC<{ block: LessonBlock; onChange: (updated: LessonBlock) => void }> = ({
+  block,
+  onChange,
+}) => {
   if (block.type === 'text') {
     return (
       <div className="space-y-3">
@@ -114,6 +112,27 @@ export const BlockForm: React.FC<BlockFormProps> = ({ block, onChange }) => {
             className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-emerald-300 font-mono"
           />
         )}
+      </div>
+    );
+  }
+
+  if (block.type === 'photo_submission') {
+    return (
+      <div className="space-y-2 text-xs">
+        <label className="block text-slate-400 font-semibold">Условие задачи части «С» для решения в тетради:</label>
+        <textarea
+          value={block.prompt}
+          onChange={e => onChange({ ...block, prompt: e.target.value })}
+          rows={2}
+          className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-100"
+        />
+        <input
+          type="text"
+          value={block.criteria || ''}
+          onChange={e => onChange({ ...block, criteria: e.target.value })}
+          placeholder="Критерии ФИПИ (макс. первичных баллов)"
+          className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200"
+        />
       </div>
     );
   }

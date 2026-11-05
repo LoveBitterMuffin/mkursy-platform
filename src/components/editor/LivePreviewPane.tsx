@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Monitor, Smartphone } from 'lucide-react';
 import { Lesson } from '../../types';
-import { MathFormula, MathText, InteractivePlot, QuizBlock } from '../math';
+import { MathFormula, MathText, InteractivePlot, QuizBlock, PhotoSubmissionBlock } from '../math';
 
 interface LivePreviewPaneProps {
   lesson: Lesson;
@@ -94,6 +94,9 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({ lesson }) => {
               }
               if (block.type === 'quiz') {
                 return <QuizBlock key={block.id} block={block} />;
+              }
+              if (block.type === 'photo_submission') {
+                return <PhotoSubmissionBlock key={block.id} block={block} />;
               }
               return (
                 <div key={block.id} className="p-4 bg-slate-900 border border-slate-800 rounded-2xl text-center text-xs text-slate-400">

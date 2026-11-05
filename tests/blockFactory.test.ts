@@ -28,8 +28,17 @@ describe('createDefaultBlock', () => {
     }
   });
 
+  it('creates default photo_submission block', () => {
+    const block = createDefaultBlock('photo_submission', 'b4');
+    expect(block.type).toBe('photo_submission');
+    if (block.type === 'photo_submission') {
+      expect(block.maxScore).toBe(2);
+      expect(block.prompt).toContain('части «С»');
+    }
+  });
+
   it('creates default text block', () => {
-    const block = createDefaultBlock('text', 'b4');
+    const block = createDefaultBlock('text', 'b5');
     expect(block.type).toBe('text');
   });
 });

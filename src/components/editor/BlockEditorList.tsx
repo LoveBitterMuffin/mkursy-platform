@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronUp, ChevronDown, Trash2, Plus, Type, Sigma, LineChart, HelpCircle } from 'lucide-react';
+import { ChevronUp, ChevronDown, Trash2, Plus, Type, Sigma, LineChart, HelpCircle, Camera } from 'lucide-react';
 import { LessonBlock } from '../../types';
 import { BlockForm } from './BlockForm';
 import { createDefaultBlock } from '../../utils/blockFactory';
@@ -68,6 +68,13 @@ export const BlockEditorList: React.FC<BlockEditorListProps> = ({ blocks, onChan
           className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
         >
           <HelpCircle className="w-3.5 h-3.5 text-purple-400" /> Квиз
+        </button>
+        <button
+          type="button"
+          onClick={() => addBlock('photo_submission')}
+          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
+        >
+          <Camera className="w-3.5 h-3.5 text-rose-400" /> Фото части «С»
         </button>
       </div>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, CheckCircle2, Clock, Sparkles, BookOpen } from 'lucide-react';
 import { Lesson } from '../../types';
-import { MathFormula, MathText, InteractivePlot, QuizBlock } from '../math';
+import { MathFormula, MathText, InteractivePlot, QuizBlock, PhotoSubmissionBlock } from '../math';
 
 interface LessonPlayerProps {
   lesson: Lesson;
@@ -101,6 +101,16 @@ export const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onBack, onFi
           }
           if (block.type === 'quiz') {
             return <QuizBlock key={block.id} block={block} onComplete={handleQuizComplete} />;
+          }
+          if (block.type === 'photo_submission') {
+            return (
+              <div key={block.id}>
+                <PhotoSubmissionBlock
+                  block={block}
+                  onSubmitted={() => setEarnedXp(prev => prev + 30)}
+                />
+              </div>
+            );
           }
           return null;
         })}

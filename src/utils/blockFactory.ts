@@ -26,6 +26,14 @@ export const createDefaultBlock = (type: LessonBlock['type'], id: string): Lesso
         hints: ['Подсказка к задаче'],
         explanation: 'Объяснение решения',
       };
+    case 'photo_submission':
+      return {
+        id,
+        type: 'photo_submission',
+        prompt: 'Оформите решение задачи части «С» в тетради и прикрепите четкое фото:',
+        maxScore: 2,
+        criteria: 'Критерии ФИПИ: 2 балла за полное обоснование и верный ответ; 1 балл за арифметическую ошибку при верном ходе решения.',
+      };
     case 'video':
       return { id, type: 'video', title: 'Видеоразбор', url: 'https://youtube.com', durationMinutes: 10 };
     case 'text':

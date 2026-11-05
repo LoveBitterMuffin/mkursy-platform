@@ -71,12 +71,22 @@ export interface QuizLessonBlock {
   explanation: string;
 }
 
+export interface PhotoSubmissionBlock {
+  id: string;
+  type: 'photo_submission';
+  prompt: string;
+  maxScore: number;
+  criteria?: string;
+  uploadedPhotoUrl?: string;
+}
+
 export type LessonBlock =
   | TextLessonBlock
   | MathLessonBlock
   | PlotLessonBlock
   | VideoLessonBlock
-  | QuizLessonBlock;
+  | QuizLessonBlock
+  | PhotoSubmissionBlock;
 
 export interface Lesson {
   id: string;

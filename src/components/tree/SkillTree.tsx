@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ZoomIn, ZoomOut, RotateCcw, Filter } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ZoomIn, ZoomOut, RotateCcw, Filter, Maximize2, Minimize2 } from 'lucide-react';
 import { SkillNode, SkillCategory } from '../../types';
 import { SkillNodeCard } from './SkillNodeCard';
 import { SkillTreeCanvas } from './SkillTreeCanvas';
@@ -15,6 +15,16 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
   const [selectedSkill, setSelectedSkill] = useState<SkillNode | null>(null);
   const [zoom, setZoom] = useState<number>(1);
   const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isFullscreen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isFullscreen]);
 
   const filteredSkills = selectedCategory === 'all'
     ? skills
@@ -29,7 +39,11 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
   ];
 
   return (
-    <div className="relative w-full h-[680px] bg-slate-950 border border-slate-800/80 rounded-3xl overflow-hidden shadow-2xl shadow-indigo-950/20 flex flex-col">
+    <div
+      className={`relative w-full bg-slate-950 border border-slate-800/80 overflow-hidden shadow-2xl shadow-indigo-950/20 flex flex-col transition-all ${
+        isFullscreen ? 'fixed inset-0 z-50 h-screen w-screen rounded-none' : 'h-[680px] rounded-3xl'
+      }`}
+    >
       <div className="absolute top-5 left-5 right-5 z-30 flex flex-wrap items-center justify-between gap-4 pointer-events-none">
         <div className="flex items-center gap-2 p-2 bg-slate-900/90 border border-slate-700/80 rounded-2xl backdrop-blur-xl shadow-lg pointer-events-auto">
           <div className="flex items-center gap-1.5 px-2 text-slate-400 font-semibold text-xs">
@@ -79,6 +93,15 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
             aria-label="Сбросить масштаб"
           >
             <RotateCcw className="w-4 h-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsFullscreen(f => !f)}
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-indigo-400 hover:text-white hover:bg-slate-800/80 rounded-xl transition-colors"
+            title={isFullscreen ? 'Выйти из полноэкранного режима' : 'Во весь экран'}
+            aria-label={isFullscreen ? 'Выйти из полноэкранного режима' : 'Во весь экран'}
+          >
+            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </button>
         </div>
       </div>
