@@ -1,0 +1,7 @@
+﻿5f01500 feat: add domain types, skill tree logic and initial math curriculum
+ src/data/initialData.ts      | 131 +++++++++++++++++++++++++++++
+ src/data/sampleLessons.ts    |  52 ++++++++++++
+ src/types/index.ts           |  97 ++++++++++++++++++++++
+ src/utils/skillTreeLogic.ts  |  73 ++++++++++++++++
+ tests/skillTreeLogic.test.ts | 194 +++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 547 insertions(+)

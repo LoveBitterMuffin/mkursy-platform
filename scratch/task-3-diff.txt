@@ -1,0 +1,10 @@
+﻿1f7672b feat: add katex formula renderer, math palette and interactive plot canvas
+ src/components/math/InteractivePlot.tsx   | 120 ++++++++++++++++++++++++++
+ src/components/math/MathFormula.tsx       |  61 +++++++++++++
+ src/components/math/MathSymbolPalette.tsx | 100 +++++++++++++++++++++
+ src/components/math/index.ts              |   6 ++
+ src/utils/canvasPlotDrawer.ts             | 113 ++++++++++++++++++++++++
+ src/utils/mathEvaluator.ts                | 139 ++++++++++++++++++++++++++++++
+ tests/mathComponents.test.tsx             |  87 +++++++++++++++++++
+ tests/mathEvaluator.test.ts               |  85 ++++++++++++++++++
+ 8 files changed, 711 insertions(+)

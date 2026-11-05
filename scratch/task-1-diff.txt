@@ -1,0 +1,23 @@
+﻿1a74406 chore: scaffold vite react typescript project with tailwind and vitest
+ .gitignore                                         |   38 +
+ "Logo big (\321\201\320\260\320\271\321\202).png"  |  Bin 0 -> 92588 bytes
+ Logo big M.png                                     |  Bin 0 -> 28987 bytes
+ "Logo mini (\321\201\320\260\320\271\321\202).png" |  Bin 0 -> 7790 bytes
+ Wallpapers/wallpaper_desktop_16x9.png              |  Bin 0 -> 3376626 bytes
+ Wallpapers/wallpaper_desktop_light_16x9.png        |  Bin 0 -> 1282365 bytes
+ Wallpapers/wallpaper_mobile_9x16.png               |  Bin 0 -> 3121407 bytes
+ Wallpapers/wallpaper_mobile_light_9x16.png         |  Bin 0 -> 945818 bytes
+ index.html                                         |   13 +
+ package-lock.json                                  | 4120 ++++++++++++++++++++
+ package.json                                       |   33 +
+ postcss.config.js                                  |    6 +
+ scratch/task-1-brief.md                            |   46 +
+ src/App.tsx                                        |   18 +
+ src/index.css                                      |   13 +
+ src/main.tsx                                       |   13 +
+ tailwind.config.js                                 |   19 +
+ tests/setup.ts                                     |    1 +
+ tests/smoke.test.ts                                |    7 +
+ tsconfig.json                                      |   19 +
+ vite.config.ts                                     |   12 +
+ 21 files changed, 4358 insertions(+)
