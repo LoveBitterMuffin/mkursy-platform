@@ -50,3 +50,5 @@ export const sampleLessonParabola: Lesson = {
     },
   ],
 };
+
+export const sampleParabolaLesson = sampleLessonParabola;
