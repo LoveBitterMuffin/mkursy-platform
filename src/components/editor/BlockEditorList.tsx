@@ -37,53 +37,53 @@ export const BlockEditorList: React.FC<BlockEditorListProps> = ({ blocks, onChan
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-2 p-2.5 bg-slate-900 border border-slate-800/80 rounded-2xl shadow-sm">
-        <span className="text-xs font-bold text-slate-400 mr-2 flex items-center gap-1.5 pl-1">
-          <Plus className="w-4 h-4 text-indigo-400" /> Добавить:
+      <div className="flex flex-wrap items-center gap-2 p-2.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-sm">
+        <span className="text-xs font-bold text-slate-500 dark:text-slate-400 mr-2 flex items-center gap-1.5 pl-1">
+          <Plus className="w-4 h-4 text-[#0066FF] dark:text-indigo-400" /> Добавить:
         </span>
         <button
           type="button"
           onClick={() => addBlock('text')}
-          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors border border-slate-200 dark:border-transparent"
         >
-          <Type className="w-3.5 h-3.5 text-indigo-400" /> Текст
+          <Type className="w-3.5 h-3.5 text-[#0066FF] dark:text-indigo-400" /> Текст
         </button>
         <button
           type="button"
           onClick={() => addBlock('math')}
-          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors border border-slate-200 dark:border-transparent"
         >
-          <Sigma className="w-3.5 h-3.5 text-emerald-400" /> Формулу
+          <Sigma className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Формулу
         </button>
         <button
           type="button"
           onClick={() => addBlock('plot')}
-          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors border border-slate-200 dark:border-transparent"
         >
-          <LineChart className="w-3.5 h-3.5 text-amber-400" /> График
+          <LineChart className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" /> График
         </button>
         <button
           type="button"
           onClick={() => addBlock('quiz')}
-          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors border border-slate-200 dark:border-transparent"
         >
-          <HelpCircle className="w-3.5 h-3.5 text-purple-400" /> Квиз
+          <HelpCircle className="w-3.5 h-3.5 text-purple-500 dark:text-purple-400" /> Квиз
         </button>
         <button
           type="button"
           onClick={() => addBlock('photo_submission')}
-          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl flex items-center gap-1.5 transition-colors border border-slate-200 dark:border-transparent"
         >
-          <Camera className="w-3.5 h-3.5 text-rose-400" /> Фото части «С»
+          <Camera className="w-3.5 h-3.5 text-rose-500 dark:text-rose-400" /> Фото части «С»
         </button>
       </div>
 
       <div className="space-y-3.5">
         {blocks.map((block, idx) => (
-          <div key={block.id} className="p-4 bg-slate-900/90 border border-slate-800/80 rounded-2xl space-y-3 shadow-sm">
-            <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
-              <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
-                <span className="w-5 h-5 rounded-lg bg-indigo-500/10 flex items-center justify-center text-[10px] text-indigo-300 font-mono">
+          <div key={block.id} className="p-4 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl space-y-3 shadow-sm">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-2.5">
+              <span className="text-xs font-bold text-[#0066FF] dark:text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-5 h-5 rounded-lg bg-blue-50 dark:bg-indigo-500/10 flex items-center justify-center text-[10px] text-[#0066FF] dark:text-indigo-300 font-mono">
                   {idx + 1}
                 </span>
                 {block.type}

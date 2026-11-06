@@ -61,7 +61,7 @@ export const LessonEditor: React.FC<LessonEditorProps> = ({
             type="button"
             onClick={() => setViewMode('split')}
             className={`min-h-[40px] px-3 py-1.5 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-all ${
-              viewMode === 'split' ? 'bg-[#0066FF] text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              viewMode === 'split' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <Columns className="w-3.5 h-3.5" /> Сплит 50/50
@@ -70,7 +70,7 @@ export const LessonEditor: React.FC<LessonEditorProps> = ({
             type="button"
             onClick={() => setViewMode('editor')}
             className={`min-h-[40px] px-3 py-1.5 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-all ${
-              viewMode === 'editor' ? 'bg-[#0066FF] text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              viewMode === 'editor' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <Edit3 className="w-3.5 h-3.5" /> Редактор
@@ -79,7 +79,7 @@ export const LessonEditor: React.FC<LessonEditorProps> = ({
             type="button"
             onClick={() => setViewMode('preview')}
             className={`min-h-[40px] px-3 py-1.5 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-all ${
-              viewMode === 'preview' ? 'bg-[#0066FF] text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              viewMode === 'preview' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <Eye className="w-3.5 h-3.5" /> Превью

@@ -14,7 +14,7 @@ export const BlockForm: React.FC<{ block: LessonBlock; onChange: (updated: Lesso
           <select
             value={block.calloutType || 'info'}
             onChange={e => onChange({ ...block, calloutType: e.target.value as any })}
-            className="text-xs bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-slate-200"
+            className="text-xs bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200"
           >
             <option value="info">Обычный текст</option>
             <option value="theorem">Теорема</option>
@@ -27,7 +27,7 @@ export const BlockForm: React.FC<{ block: LessonBlock; onChange: (updated: Lesso
           onChange={e => onChange({ ...block, content: e.target.value })}
           placeholder="Текст с формулами $a^2 + b^2 = c^2$..."
           rows={3}
-          className="w-full text-xs bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-slate-100 font-sans"
+          className="w-full text-xs bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-900 dark:text-slate-100 font-sans"
         />
       </div>
     );
@@ -41,7 +41,7 @@ export const BlockForm: React.FC<{ block: LessonBlock; onChange: (updated: Lesso
           onChange={e => onChange({ ...block, latex: e.target.value })}
           placeholder="LaTeX формула, например: f(x) = \frac{-b \pm \sqrt{D}}{2a}"
           rows={2}
-          className="w-full text-xs font-mono bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-indigo-300"
+          className="w-full text-xs font-mono bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-[#0066FF] dark:text-indigo-300"
         />
         <MathSymbolPalette onSelectSymbol={(sym: string) => onChange({ ...block, latex: block.latex + sym })} />
       </div>
@@ -56,14 +56,14 @@ export const BlockForm: React.FC<{ block: LessonBlock; onChange: (updated: Lesso
           value={block.title}
           onChange={e => onChange({ ...block, title: e.target.value })}
           placeholder="Заголовок графика"
-          className="w-full text-xs bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-100"
+          className="w-full text-xs bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-slate-900 dark:text-slate-100"
         />
         <input
           type="text"
           value={block.fnExpression}
           onChange={e => onChange({ ...block, fnExpression: e.target.value })}
           placeholder="Формула функции: a * x^2 + b * x + c"
-          className="w-full text-xs font-mono bg-slate-950 border border-slate-700 rounded-lg p-2 text-amber-300"
+          className="w-full text-xs font-mono bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-amber-600 dark:text-amber-300"
         />
       </div>
     );
@@ -77,11 +77,11 @@ export const BlockForm: React.FC<{ block: LessonBlock; onChange: (updated: Lesso
           value={block.question}
           onChange={e => onChange({ ...block, question: e.target.value })}
           placeholder="Вопрос квиза (поддерживает $формулы$)"
-          className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-100"
+          className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-slate-900 dark:text-slate-100"
         />
         {block.options && block.options.length > 0 ? (
           <div className="space-y-1">
-            <span className="text-[11px] text-slate-400">Варианты ответа (отметьте верный):</span>
+            <span className="text-[11px] text-slate-500 dark:text-slate-400">Варианты ответа (отметьте верный):</span>
             {block.options.map((opt, i) => (
               <div key={i} className="flex items-center gap-1.5">
                 <input
@@ -98,7 +98,7 @@ export const BlockForm: React.FC<{ block: LessonBlock; onChange: (updated: Lesso
                     next[i] = e.target.value;
                     onChange({ ...block, options: next });
                   }}
-                  className="flex-1 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-slate-200"
+                  className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded px-2 py-1 text-slate-900 dark:text-slate-200"
                 />
               </div>
             ))}
@@ -109,7 +109,7 @@ export const BlockForm: React.FC<{ block: LessonBlock; onChange: (updated: Lesso
             value={block.mathAnswer || ''}
             onChange={e => onChange({ ...block, mathAnswer: e.target.value })}
             placeholder="Точный ответ (число или дробь, например: 0.5 или 1/2)"
-            className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-emerald-300 font-mono"
+            className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-emerald-600 dark:text-emerald-300 font-mono"
           />
         )}
       </div>
@@ -119,19 +119,19 @@ export const BlockForm: React.FC<{ block: LessonBlock; onChange: (updated: Lesso
   if (block.type === 'photo_submission') {
     return (
       <div className="space-y-2 text-xs">
-        <label className="block text-slate-400 font-semibold">Условие задачи части «С» для решения в тетради:</label>
+        <label className="block text-slate-500 dark:text-slate-400 font-semibold">Условие задачи части «С» для решения в тетради:</label>
         <textarea
           value={block.prompt}
           onChange={e => onChange({ ...block, prompt: e.target.value })}
           rows={2}
-          className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-100"
+          className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-slate-900 dark:text-slate-100"
         />
         <input
           type="text"
           value={block.criteria || ''}
           onChange={e => onChange({ ...block, criteria: e.target.value })}
           placeholder="Критерии ФИПИ (макс. первичных баллов)"
-          className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200"
+          className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-slate-900 dark:text-slate-200"
         />
       </div>
     );
@@ -143,7 +143,7 @@ export const BlockForm: React.FC<{ block: LessonBlock; onChange: (updated: Lesso
       value={block.url}
       onChange={e => onChange({ ...block, url: e.target.value })}
       placeholder="Ссылка на видео (YouTube / Rutube)"
-      className="w-full text-xs bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-100"
+      className="w-full text-xs bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-slate-900 dark:text-slate-100"
     />
   );
 };
