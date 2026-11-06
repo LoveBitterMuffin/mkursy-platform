@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param (
     [switch]$NoBrowser,
     [switch]$InstallOnly
@@ -97,13 +97,36 @@ if (-not (Test-Path $nodeModulesPath)) {
     Write-Warning "node_modules folder is missing."
     $needInstall = $true
 } else {
-    $criticalModules = @("vite", "react", "react-dom", "tailwindcss", "katex", "lucide-react")
-    foreach ($mod in $criticalModules) {
-        $modPath = Join-Path $nodeModulesPath $mod
-        if (-not (Test-Path $modPath)) {
-            Write-Warning "Missing critical module: $mod"
+    try {
+        $pkg = Get-Content $packageJsonPath -Raw | ConvertFrom-Json
+        $allDeps = @()
+        if ($pkg.dependencies) {
+            $allDeps += ($pkg.dependencies.PSObject.Properties | ForEach-Object { $_.Name })
+        }
+        if ($pkg.devDependencies) {
+            $allDeps += ($pkg.devDependencies.PSObject.Properties | ForEach-Object { $_.Name })
+        }
+
+        $missing = @()
+        foreach ($dep in $allDeps) {
+            $depPath = Join-Path $nodeModulesPath $dep
+            if (-not (Test-Path $depPath)) {
+                $missing += $dep
+            }
+        }
+        if ($missing.Count -gt 0) {
+            Write-Warning "Missing packages ($($missing.Count)): $($missing -join ', ')"
             $needInstall = $true
-            break
+        }
+    } catch {
+        $criticalModules = @("vite", "react", "react-dom", "tailwindcss", "katex", "lucide-react")
+        foreach ($mod in $criticalModules) {
+            $modPath = Join-Path $nodeModulesPath $mod
+            if (-not (Test-Path $modPath)) {
+                Write-Warning "Missing critical module: $mod"
+                $needInstall = $true
+                break
+            }
         }
     }
 }
