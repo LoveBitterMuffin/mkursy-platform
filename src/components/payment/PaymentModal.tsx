@@ -52,35 +52,35 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-      <div className="w-full max-w-md bg-[#0B132B] border border-slate-700 rounded-2xl shadow-2xl p-6 text-slate-100 relative">
+      <div className="w-full max-w-md bg-white dark:bg-[#0B132B] border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl p-6 text-slate-900 dark:text-slate-100 relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-[#0DA0E3]">
+          <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-[#0066FF] dark:text-[#0DA0E3]">
             <CreditCard className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">Шлюз оплаты курса</h3>
-            <p className="text-xs text-slate-400">Лицензия № Л035-01298-77/01609816</p>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">Шлюз оплаты курса</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Лицензия № Л035-01298-77/01609816</p>
           </div>
         </div>
 
-        <div className="p-4 bg-slate-900/90 rounded-xl border border-slate-800 mb-5 space-y-2">
-          <div className="text-xs text-slate-400">Выбранная программа:</div>
-          <div className="text-sm font-semibold text-white">{courseTitle}</div>
-          <div className="flex justify-between items-center pt-2 border-t border-slate-800">
-            <span className="text-xs text-slate-400">Стоимость за месяц:</span>
-            <span className="text-base font-extrabold text-[#0DA0E3]">{amount.toLocaleString('ru-RU')} ₽</span>
+        <div className="p-4 bg-slate-50 dark:bg-slate-900/90 rounded-xl border border-slate-200 dark:border-slate-800 mb-5 space-y-2">
+          <div className="text-xs text-slate-500 dark:text-slate-400">Выбранная программа:</div>
+          <div className="text-sm font-semibold text-slate-900 dark:text-white">{courseTitle}</div>
+          <div className="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800">
+            <span className="text-xs text-slate-500 dark:text-slate-400">Стоимость за месяц:</span>
+            <span className="text-base font-extrabold text-[#0066FF] dark:text-[#0DA0E3]">{amount.toLocaleString('ru-RU')} ₽</span>
           </div>
         </div>
 
         <div className="space-y-3 mb-6">
-          <label className="block text-xs font-semibold text-slate-300">Платежный шлюз (адаптер):</label>
+          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Платежный шлюз (адаптер):</label>
           <div className="grid grid-cols-3 gap-2">
             {(['tbank', 'yookassa', 'mock'] as PaymentProvider[]).map(p => (
               <button
@@ -88,8 +88,8 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                 onClick={() => setProvider(p)}
                 className={`py-2 px-2.5 rounded-lg text-xs font-semibold border transition-all ${
                   provider === p
-                    ? 'border-[#0DA0E3] bg-blue-500/15 text-white'
-                    : 'border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700'
+                    ? 'border-[#0066FF] bg-blue-500/15 text-[#0066FF] dark:text-white font-bold'
+                    : 'border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                 }`}
               >
                 {p === 'tbank' ? 'Т-Банк' : p === 'yookassa' ? 'ЮKassa' : 'Тест'}

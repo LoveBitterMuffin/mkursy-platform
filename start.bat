@@ -1,22 +1,26 @@
 @echo off
-chcp 65001 >nul
-title МКурсы — Запуск платформы
+setlocal
+cd /d "%~dp0"
+title MKursy Platform Launcher
 
-echo ======================================================
-echo    МКурсы: Проверка зависимостей и запуск сервера
-echo ======================================================
+where powershell >nul 2>&1
+if %ERRORLEVEL% EQU 0 (
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0start.ps1"
+    if %ERRORLEVEL% EQU 0 goto :done
+)
+
+where node >nul 2>&1
+if %ERRORLEVEL% EQU 0 (
+    echo Starting via Node.js fallback...
+    node "%~dp0start.mjs"
+    if %ERRORLEVEL% EQU 0 goto :done
+)
+
 echo.
-
-:: Попытка запуска через PowerShell (с богатым цветным выводом и проверкой)
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0start.ps1"
-if %ERRORLEVEL% EQU 0 goto :eof
-
-:: Резервный запуск через Node.js, если PowerShell недоступен
+echo [ERROR] Neither PowerShell nor Node.js could launch the project.
+echo Please ensure Node.js is installed from https://nodejs.org/
 echo.
-echo [INFO] Запуск через Node.js (резервный режим)...
-node "%~dp0start.mjs"
-if %ERRORLEVEL% EQU 0 goto :eof
-
-echo.
-echo [ОШИБКА] Не удалось запустить сервер. Убедитесь, что Node.js установлен: https://nodejs.org/
 pause
+
+:done
+endlocal

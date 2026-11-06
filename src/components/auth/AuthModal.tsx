@@ -39,20 +39,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-      <div className="w-full max-w-md bg-[#0B132B] border border-slate-700 rounded-2xl shadow-2xl p-6 text-slate-100 relative">
+      <div className="w-full max-w-md bg-white dark:bg-[#0B132B] border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl p-6 text-slate-900 dark:text-slate-100 relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
           aria-label="Закрыть окно"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <div className="flex gap-2 p-1 bg-slate-900 rounded-xl mb-5 text-sm font-semibold">
+        <div className="flex gap-2 p-1 bg-slate-100 dark:bg-slate-900 rounded-xl mb-5 text-sm font-semibold">
           <button
             onClick={() => setTab('register')}
             className={`flex-1 py-2 rounded-lg flex items-center justify-center gap-2 ${
-              tab === 'register' ? 'bg-[#146CC4] text-white shadow' : 'text-slate-400 hover:text-slate-200'
+              tab === 'register' ? 'bg-[#0066FF] text-white shadow' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
             <UserPlus className="w-4 h-4" /> Регистрация
@@ -60,7 +60,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
           <button
             onClick={() => setTab('login')}
             className={`flex-1 py-2 rounded-lg flex items-center justify-center gap-2 ${
-              tab === 'login' ? 'bg-[#146CC4] text-white shadow' : 'text-slate-400 hover:text-slate-200'
+              tab === 'login' ? 'bg-[#0066FF] text-white shadow' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
             <LogIn className="w-4 h-4" /> Вход в систему
@@ -76,37 +76,37 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
 
           {tab === 'register' && (
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">ФИО пользователя</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">ФИО пользователя</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="Иванов Петр Сергеевич"
-                className="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-[#0DA0E3]"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#0066FF]"
               />
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">Рабочий Email</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Рабочий Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="user@example.com"
-              className="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-[#0DA0E3]"
+              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#0066FF]"
             />
           </div>
 
           {tab === 'register' && (
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Роль в центре «МКурсы»</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Роль в центре «МКурсы»</label>
               <select
                 value={role}
                 onChange={e => setRole(e.target.value as UserRole)}
-                className="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-[#0DA0E3]"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#0066FF]"
               >
                 <option value="student">Ученик (обучение в группе)</option>
                 <option value="curator">Куратор (сопровождение 10 учеников)</option>

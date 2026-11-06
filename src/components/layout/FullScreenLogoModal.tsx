@@ -38,8 +38,8 @@ export const FullScreenLogoModal: React.FC<FullScreenLogoModalProps> = ({
         <X className="w-5 h-5" />
       </button>
 
-      <div className="relative w-full max-w-sm sm:max-w-md flex flex-col items-center justify-center p-8 sm:p-10 rounded-3xl bg-slate-900/95 border border-slate-700/80 shadow-2xl shadow-blue-950/50 ring-1 ring-blue-500/30 text-center">
-        <div className="w-48 h-48 sm:w-60 sm:h-60 bg-white rounded-2xl flex items-center justify-center p-4 shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300">
+      <div className="relative w-full max-w-sm sm:max-w-md flex flex-col items-center justify-center p-8 sm:p-10 rounded-3xl bg-white dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700/80 shadow-2xl shadow-blue-500/10 dark:shadow-blue-950/50 text-center">
+        <div className="w-48 h-48 sm:w-60 sm:h-60 bg-white rounded-2xl flex items-center justify-center p-4 shadow-md overflow-hidden">
           <img
             src={logoIcon}
             alt="Символ бренда МКурсы"
@@ -48,10 +48,10 @@ export const FullScreenLogoModal: React.FC<FullScreenLogoModalProps> = ({
         </div>
 
         <div className="mt-6 space-y-1.5">
-          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
             МКурсы
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 font-medium">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium">
             Центр дополнительного образования
           </p>
         </div>

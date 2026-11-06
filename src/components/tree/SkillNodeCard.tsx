@@ -14,7 +14,7 @@ export const SkillNodeCard: React.FC<SkillNodeCardProps> = ({ skill, isSelected,
       case 'mastered':
         return 'bg-emerald-50 dark:bg-emerald-950/90 border-emerald-500 dark:border-emerald-400 text-emerald-950 dark:text-emerald-100 shadow-md shadow-emerald-500/10 dark:shadow-emerald-500/20 ring-2 ring-emerald-500/30 dark:ring-emerald-500/40';
       case 'in_progress':
-        return 'bg-blue-50 dark:bg-indigo-950/90 border-[#0066FF] dark:border-indigo-400 text-blue-950 dark:text-indigo-100 shadow-md shadow-blue-500/15 dark:shadow-indigo-500/25 ring-2 ring-blue-500/30 dark:ring-indigo-500/50 animate-pulse';
+        return 'bg-blue-50 dark:bg-indigo-950/90 border-[#0066FF] dark:border-indigo-400 text-blue-950 dark:text-indigo-100 shadow-md shadow-blue-500/15 dark:shadow-indigo-500/25 ring-2 ring-blue-500/30 dark:ring-indigo-500/50';
       case 'available':
         return 'bg-amber-50 dark:bg-slate-900 border-amber-400 dark:border-amber-400/80 text-amber-950 dark:text-amber-100 shadow-sm dark:shadow-md hover:border-amber-500 dark:hover:border-amber-300';
       case 'locked':
@@ -28,7 +28,7 @@ export const SkillNodeCard: React.FC<SkillNodeCardProps> = ({ skill, isSelected,
       case 'mastered':
         return <Check className="w-4 h-4 text-emerald-300" />;
       case 'in_progress':
-        return <Sparkles className="w-4 h-4 text-indigo-300 animate-spin" />;
+        return <Sparkles className="w-4 h-4 text-[#0066FF] dark:text-indigo-300" />;
       case 'available':
         return <BookOpen className="w-4 h-4 text-amber-300" />;
       case 'locked':
@@ -52,8 +52,8 @@ export const SkillNodeCard: React.FC<SkillNodeCardProps> = ({ skill, isSelected,
       style={{ left: `${skill.x}px`, top: `${skill.y}px` }}
       onClick={() => onSelect(skill)}
       onKeyDown={handleKeyDown}
-      className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 select-none rounded-3xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-indigo-400 ${
-        isSelected ? 'scale-110 z-30 ring-4 ring-indigo-400/80' : 'hover:scale-105 z-20'
+      className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer select-none rounded-3xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0066FF] ${
+        isSelected ? 'z-30 ring-4 ring-[#0066FF]' : 'z-20'
       }`}
     >
       <div className={`w-32 p-3.5 rounded-3xl border flex flex-col items-center text-center gap-2 ${getStatusStyles()}`}>

@@ -35,18 +35,18 @@ export const QuizBlock: React.FC<QuizBlockProps> = ({ block, onComplete }) => {
   };
 
   return (
-    <div className={`p-6 rounded-2xl border transition-all duration-300 ${
+    <div className={`p-6 rounded-2xl border ${
       isSubmitted 
         ? isCorrect 
-          ? 'bg-emerald-950/30 border-emerald-500/60 shadow-xl shadow-emerald-900/15'
-          : 'bg-rose-950/30 border-rose-500/50'
-        : 'bg-slate-900/80 border-slate-800/80 shadow-lg'
+          ? 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-500/60 shadow-md'
+          : 'bg-rose-50 dark:bg-rose-950/30 border-rose-500/50'
+        : 'bg-white dark:bg-slate-900/80 border-slate-200 dark:border-slate-800/80 shadow-sm dark:shadow-lg'
     }`}>
       <div className="flex items-start justify-between gap-4 mb-5">
-        <h4 className="text-base font-bold text-slate-100 flex-1 leading-snug">
+        <h4 className="text-base font-bold text-slate-900 dark:text-slate-100 flex-1 leading-snug">
           <MathText text={block.question} />
         </h4>
-        <span className="px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
+        <span className="px-3 py-1 text-xs font-bold rounded-full bg-blue-50 dark:bg-indigo-500/15 text-[#0066FF] dark:text-indigo-300 border border-blue-200 dark:border-indigo-500/30">
           +25 XP
         </span>
       </div>
@@ -55,15 +55,15 @@ export const QuizBlock: React.FC<QuizBlockProps> = ({ block, onComplete }) => {
         <div className="space-y-2.5 mb-5">
           {block.options.map((option, idx) => {
             const isSelected = selectedOption === idx;
-            let btnStyle = 'bg-slate-800/70 border-slate-700/80 hover:border-indigo-400 text-slate-200';
+            let btnStyle = 'bg-slate-50 dark:bg-slate-800/70 border-slate-200 dark:border-slate-700/80 hover:border-[#0066FF] text-slate-800 dark:text-slate-200';
             if (isSubmitted) {
               if (idx === block.correctOptionIndex) {
-                btnStyle = 'bg-emerald-900/50 border-emerald-500 text-emerald-100 ring-1 ring-emerald-500';
+                btnStyle = 'bg-emerald-50 dark:bg-emerald-900/50 border-emerald-500 text-emerald-900 dark:text-emerald-100 ring-1 ring-emerald-500';
               } else if (isSelected && !isCorrect) {
-                btnStyle = 'bg-rose-900/50 border-rose-500 text-rose-100';
+                btnStyle = 'bg-rose-50 dark:bg-rose-900/50 border-rose-500 text-rose-900 dark:text-rose-100';
               }
             } else if (isSelected) {
-              btnStyle = 'bg-indigo-600/30 border-indigo-500 text-indigo-100 ring-2 ring-indigo-500';
+              btnStyle = 'bg-blue-50 dark:bg-indigo-600/30 border-[#0066FF] text-blue-900 dark:text-indigo-100 ring-2 ring-[#0066FF]';
             }
 
             return (
@@ -93,12 +93,12 @@ export const QuizBlock: React.FC<QuizBlockProps> = ({ block, onComplete }) => {
               onChange={e => setUserMathInput(e.target.value)}
               placeholder="Введите число или дробь (например, 0.5 или 1/2)"
               disabled={isSubmitted && isCorrect}
-              className="flex-1 px-4 py-3 text-sm bg-slate-950 border border-slate-700/80 rounded-xl text-slate-100 focus:outline-none focus:border-indigo-500 transition-colors"
+              className="flex-1 px-4 py-3 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700/80 rounded-xl text-slate-900 dark:text-slate-100 focus:outline-none focus:border-[#0066FF] transition-colors"
             />
             <button
               type="submit"
               disabled={!userMathInput.trim() || (isSubmitted && isCorrect)}
-              className="px-5 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded-xl text-sm font-bold flex items-center gap-2 transition-colors shadow-lg shadow-indigo-600/30"
+              className="px-5 py-3 bg-[#0066FF] hover:bg-blue-600 disabled:opacity-50 text-white rounded-xl text-sm font-bold flex items-center gap-2 transition-colors shadow-lg shadow-blue-500/25"
             >
               <Send className="w-4 h-4" />
               Ответить
