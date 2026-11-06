@@ -61,16 +61,87 @@ Write-Info "Step 1/4: Checking system environment (Node.js & npm)..."
 $nodeCmd = Get-Command node -ErrorAction SilentlyContinue
 
 if (-not $nodeCmd) {
-    Write-Warning "Node.js is not currently installed."
+    # Check if node.exe exists in standard Program Files location
+    if (Test-Path "C:\Program Files\nodejs\node.exe") {
+        $env:Path = "$env:Path;C:\Program Files\nodejs"
+        $nodeCmd = Get-Command node -ErrorAction SilentlyContinue
+    }
+}
+
+$needNodeInstall = $false
+if ($nodeCmd) {
+    $currentVerRaw = (& node -v).Trim()
+    $currentMajor = [int]($currentVerRaw.TrimStart('v').Split('.')[0])
+    if ($currentMajor -lt 18) {
+        Write-Warning "Detected outdated Node.js ($currentVerRaw). Node.js >= 18.0.0 is required."
+        $needNodeInstall = $true
+    }
+} else {
+    Write-Warning "Node.js is not installed on this machine."
+    $needNodeInstall = $true
+}
+
+if ($needNodeInstall) {
+    $installed = $false
+
+    # 2a. Try winget first if available
     $wingetCmd = Get-Command winget -ErrorAction SilentlyContinue
     if ($wingetCmd) {
         Write-Info "Attempting automatic Node.js installation via winget..."
         try {
             & winget install OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements
-            $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+            $machinePath = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+            $userPath = [System.Environment]::GetEnvironmentVariable("Path","User")
+            $env:Path = "$machinePath;$userPath;C:\Program Files\nodejs"
             $nodeCmd = Get-Command node -ErrorAction SilentlyContinue
+            if ($nodeCmd) { $installed = $true }
         } catch {
-            Write-Warning "Automatic winget installation was not completed."
+            Write-Warning "winget install failed or was cancelled."
+        }
+    }
+
+    # 2b. Direct MSI download from nodejs.org if winget was not available or failed
+    if (-not $installed) {
+        Write-Info "Downloading official Node.js LTS installer directly from nodejs.org..."
+        $arch = if ([System.Environment]::Is64BitOperatingSystem) { "x64" } else { "x86" }
+        $msiUrl = "https://nodejs.org/dist/v20.18.0/node-v20.18.0-$arch.msi"
+        try {
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13
+            $index = Invoke-RestMethod -Uri "https://nodejs.org/dist/index.json" -UseBasicParsing -TimeoutSec 5
+            $lts = $index | Where-Object { $_.lts -ne $false } | Select-Object -First 1
+            if ($lts -and $lts.version) {
+                $msiUrl = "https://nodejs.org/dist/$($lts.version)/node-$($lts.version)-$arch.msi"
+            }
+        } catch {
+            # Use safe fallback URL
+        }
+
+        $tempMsi = Join-Path $env:TEMP "nodejs-setup.msi"
+        Write-Info "Downloading Node.js: $msiUrl..."
+        try {
+            Invoke-WebRequest -Uri $msiUrl -OutFile $tempMsi -UseBasicParsing
+            Write-Info "Running silent installation (msiexec)..."
+            $proc = Start-Process msiexec.exe -ArgumentList "/i `"$tempMsi`" /qn /norestart" -Wait -PassThru
+            if ($proc.ExitCode -ne 0) {
+                # Attempt with elevation request if standard execution lacked permission
+                Start-Process msiexec.exe -ArgumentList "/i `"$tempMsi`" /qn /norestart" -Wait -Verb RunAs
+            }
+            Remove-Item -Force $tempMsi -ErrorAction SilentlyContinue
+
+            $machinePath = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+            $userPath = [System.Environment]::GetEnvironmentVariable("Path","User")
+            $env:Path = "$machinePath;$userPath;C:\Program Files\nodejs"
+            $nodeCmd = Get-Command node -ErrorAction SilentlyContinue
+            if ($nodeCmd) { $installed = $true }
+        } catch {
+            Write-Warning "Direct MSI download/install encountered an issue: $_"
+        }
+    }
+
+    if (-not $nodeCmd) {
+        if (Test-Path "C:\Program Files\nodejs\node.exe") {
+            $env:Path = "$env:Path;C:\Program Files\nodejs"
+            $nodeCmd = Get-Command node -ErrorAction SilentlyContinue
         }
     }
 
@@ -82,7 +153,12 @@ if (-not $nodeCmd) {
 }
 
 $nodeVer = (& node -v).Trim()
-Write-Success "Node.js detected: $nodeVer"
+$majorVer = [int]($nodeVer.TrimStart('v').Split('.')[0])
+if ($majorVer -lt 18) {
+    Write-Fatal "Node.js version is too old ($nodeVer). Version >= 18.0.0 is required."
+    exit 1
+}
+Write-Success "Node.js detected: $nodeVer (>= 18.0.0)"
 
 $npmCmd = Get-Command npm -ErrorAction SilentlyContinue
 if (-not $npmCmd) {
