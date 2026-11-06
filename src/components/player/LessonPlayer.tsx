@@ -27,46 +27,46 @@ export const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onBack, onFi
   const getCalloutStyles = (type?: string) => {
     switch (type) {
       case 'theorem':
-        return 'bg-indigo-950/40 border-l-4 border-indigo-500 text-indigo-100 shadow-lg shadow-indigo-950/20';
+        return 'bg-blue-50 dark:bg-indigo-950/40 border-l-4 border-[#0066FF] dark:border-indigo-500 text-slate-900 dark:text-indigo-100 shadow-sm';
       case 'trap':
-        return 'bg-rose-950/40 border-l-4 border-rose-500 text-rose-100 shadow-lg shadow-rose-950/20';
+        return 'bg-rose-50 dark:bg-rose-950/40 border-l-4 border-rose-500 text-rose-950 dark:text-rose-100 shadow-sm';
       case 'property':
-        return 'bg-amber-950/40 border-l-4 border-amber-500 text-amber-100 shadow-lg shadow-amber-950/20';
+        return 'bg-amber-50 dark:bg-amber-950/40 border-l-4 border-amber-500 text-amber-950 dark:text-amber-100 shadow-sm';
       case 'info':
       default:
-        return 'bg-slate-900/80 border-l-4 border-slate-600 text-slate-200';
+        return 'bg-slate-50 dark:bg-slate-900/80 border-l-4 border-slate-400 dark:border-slate-600 text-slate-800 dark:text-slate-200';
     }
   };
 
   return (
     <div className="max-w-3xl mx-auto py-10 px-4 space-y-8">
-      <div className="p-4 bg-slate-900/70 border border-slate-800/80 rounded-2xl flex items-center justify-between shadow-lg">
+      <div className="p-4 bg-white dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800/80 rounded-2xl flex items-center justify-between shadow-sm">
         <button
           type="button"
           onClick={onBack}
-          className="min-h-[44px] flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-colors py-2 px-3.5 rounded-xl hover:bg-slate-800/80"
+          className="min-h-[44px] flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors py-2 px-3.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80"
           aria-label="Назад к карте знаний"
         >
           <ArrowLeft className="w-4 h-4" /> Назад к карте знаний
         </button>
-        <div className="flex items-center gap-4 text-xs font-semibold text-slate-400">
-          <span className="flex items-center gap-1.5 bg-slate-950/60 px-3 py-1.5 rounded-xl border border-slate-800">
-            <Clock className="w-4 h-4 text-indigo-400" /> ~{lesson.estimatedMinutes} мин
+        <div className="flex items-center gap-4 text-xs font-semibold text-slate-500 dark:text-slate-400">
+          <span className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-950/60 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800">
+            <Clock className="w-4 h-4 text-[#0066FF] dark:text-indigo-400" /> ~{lesson.estimatedMinutes} мин
           </span>
-          <span className="flex items-center gap-1.5 bg-amber-500/10 text-amber-400 px-3 py-1.5 rounded-xl border border-amber-500/20">
+          <span className="flex items-center gap-1.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 px-3 py-1.5 rounded-xl border border-amber-500/20">
             <Sparkles className="w-4 h-4" /> +{earnedXp + 50} XP
           </span>
         </div>
       </div>
 
       <div className="space-y-3">
-        <div className="flex items-center gap-2 text-xs text-indigo-400 font-bold uppercase tracking-wider">
+        <div className="flex items-center gap-2 text-xs text-[#0066FF] dark:text-indigo-400 font-bold uppercase tracking-wider">
           <BookOpen className="w-4 h-4" /> Интерактивный урок
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
           {lesson.title}
         </h1>
-        <p className="text-sm text-slate-400 leading-relaxed font-medium">
+        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
           {lesson.description}
         </p>
       </div>
@@ -82,9 +82,9 @@ export const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onBack, onFi
           }
           if (block.type === 'math') {
             return (
-              <div key={block.id} className="p-6 bg-slate-900/80 border border-slate-800/80 rounded-3xl flex flex-col items-center gap-3 shadow-xl">
+              <div key={block.id} className="p-6 bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 rounded-3xl flex flex-col items-center gap-3 shadow-sm dark:shadow-xl">
                 <MathFormula latex={block.latex} displayMode />
-                {block.caption && <span className="text-xs text-slate-400 font-semibold">{block.caption}</span>}
+                {block.caption && <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">{block.caption}</span>}
               </div>
             );
           }

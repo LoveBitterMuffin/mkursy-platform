@@ -64,8 +64,8 @@ export const MathSymbolPalette: React.FC<MathSymbolPaletteProps> = ({
   const currentGroup = GROUPS.find((g) => g.id === activeGroup) ?? GROUPS[0];
 
   return (
-    <div className={`p-3 bg-slate-900/90 border border-slate-800 rounded-xl shadow-lg backdrop-blur ${className}`}>
-      <div className="flex gap-1.5 pb-2 border-b border-slate-800/80 mb-2 overflow-x-auto">
+    <div className={`p-3 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-xl shadow-md backdrop-blur ${className}`}>
+      <div className="flex gap-1.5 pb-2 border-b border-slate-100 dark:border-slate-800/80 mb-2 overflow-x-auto">
         {GROUPS.map((group) => (
           <button
             key={group.id}
@@ -74,7 +74,7 @@ export const MathSymbolPalette: React.FC<MathSymbolPaletteProps> = ({
             className={`px-2.5 py-1 text-xs rounded-lg font-medium transition-colors whitespace-nowrap ${
               activeGroup === group.id
                 ? 'bg-brand-purple text-white shadow-sm shadow-brand-purple/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60'
             }`}
           >
             {group.title}
@@ -89,7 +89,7 @@ export const MathSymbolPalette: React.FC<MathSymbolPaletteProps> = ({
             type="button"
             title={sym.tooltip ?? sym.insert}
             onClick={() => onSelectSymbol(sym.insert)}
-            className="px-2.5 py-1.5 min-w-[38px] text-xs font-mono text-slate-200 bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700/60 rounded-lg active:scale-95 transition-all text-center flex items-center justify-center"
+            className="px-2.5 py-1.5 min-w-[38px] text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700/60 rounded-lg active:scale-95 transition-all text-center flex items-center justify-center"
           >
             {sym.label}
           </button>

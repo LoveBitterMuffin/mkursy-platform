@@ -12,3 +12,14 @@ Only an explicit choice of antislop during or after selects a session mode. A re
 If the mode is unresolved, ask during/after and end the response; wait for the answer before any UI review, planning, or concept. For read-only tasks, put the active-mode notice only at the start of the final answer, never in progress messages. For editing tasks, announce before the first edit and omit it from the final answer.
 To update antislop later: `npx antislop-ai --update`, or run `npx antislop-ai` and pick Overwrite them.
 <!-- antislop:end -->
+
+## Workspace Engineering & Asset Standards
+
+### 1. Стандарт статических ассетов Vite и TypeScript
+- Все импортируемые изображения в компонентах React/Vite должны подключаться через прямые ESM-импорты (`import logo from './assets/...'`), а не через сырые строковые пути `/assets/...`.
+- В корне `src/` обязательно должен присутствовать `src/vite-env.d.ts` с директивой `/// <reference types="vite/client" />`, обеспечивающей строгую типизацию статических файлов (`.png`, `.svg`, `.webp`).
+
+### 2. Верстка логотипов и сдержанность интерфейса
+- Запрещено использовать искусственные CSS-хаки масштабирования (`scale-125`, `scale-150`) для растровых ассетов: цвет фона контейнера должен совпадать с нативным фоном картинки (`bg-white` для `#FFFFFF`), масштаб сохраняется нативным (`object-contain`).
+- Не создавать всплывающие модальные окна для элементов айдентики без явного требования в спецификации.
+

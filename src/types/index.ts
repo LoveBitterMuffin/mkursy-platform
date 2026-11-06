@@ -105,3 +105,12 @@ export interface StudentProfile {
   totalXp: number;
   forecastScore: number;
 }
+
+export * from './courses';
+export * from './auth';
+export * from './payment';
+export * from './groups';
+export * from './crm';
+export * from './homework';
+export * from './navigation';
+export * from './theme';

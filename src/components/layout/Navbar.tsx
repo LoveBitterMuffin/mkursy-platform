@@ -1,121 +1,99 @@
 import React from 'react';
-import { Compass, LayoutDashboard, Edit3, Flame, Zap, UserCheck, GraduationCap } from 'lucide-react';
-import { StudentProfile } from '../../types';
+import { Compass, LayoutDashboard, Edit3, BookOpen, Users, Briefcase, FileCheck, LogIn, Terminal } from 'lucide-react';
+import { StudentProfile, User, UserRole, AppView, getViewsForRole } from '../../types';
+import logoIcon from '../../assets/logo-icon.png';
+import { RoleDropdown } from '../auth/RoleDropdown';
+import { ThemeToggle } from './ThemeToggle';
 
 interface NavbarProps {
-  currentView: 'tree' | 'dashboard' | 'editor';
-  onViewChange: (view: 'tree' | 'dashboard' | 'editor') => void;
+  currentView: AppView;
+  onViewChange: (view: AppView) => void;
   profile: StudentProfile;
-  isTeacherMode: boolean;
-  onToggleTeacherMode: () => void;
+  currentUser?: User | null;
+  onSwitchRole?: (role: UserRole) => void;
+  onOpenAuth?: () => void;
+  isTeacherMode?: boolean;
+  onToggleTeacherMode?: () => void;
 }
+
+const allViewConfigs: Record<AppView, { label: string; icon: React.FC<{ className?: string }> }> = {
+  tree: { label: 'Карта знаний', icon: Compass },
+  homework: { label: 'ДЗ и Видео', icon: FileCheck },
+  groups: { label: 'Группы (10)', icon: Users },
+  dashboard: { label: 'Личный кабинет', icon: LayoutDashboard },
+  courses: { label: 'Программы курсов', icon: BookOpen },
+  crm: { label: 'CRM', icon: Briefcase },
+  editor: { label: 'Конструктор', icon: Edit3 },
+  devtools: { label: 'DevTools', icon: Terminal },
+  player: { label: 'Урок', icon: Compass },
+};
 
 export const Navbar: React.FC<NavbarProps> = ({
   currentView,
   onViewChange,
-  profile,
-  isTeacherMode,
-  onToggleTeacherMode,
+  currentUser = null,
+  onSwitchRole = () => {},
+  onOpenAuth = () => {},
 }) => {
+  const role = currentUser?.role || 'student';
+  const allowedViews = getViewsForRole(role).filter(v => v !== 'player');
+
   return (
-    <header className="sticky top-0 z-40 w-full bg-slate-950/85 border-b border-slate-800/80 backdrop-blur-xl select-none transition-all">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+    <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur-md select-none transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-3">
         <div
           role="button"
           tabIndex={0}
           aria-label="Главная страница МКурсы"
-          className="flex items-center gap-3.5 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded-2xl"
+          className="flex items-center gap-3 cursor-pointer group focus-visible:outline-none"
           onClick={() => onViewChange('tree')}
           onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && onViewChange('tree')}
         >
-          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/80 p-2 shadow-lg shadow-indigo-500/10 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105">
-            <img
-              src="/assets/logo-icon.png"
-              alt="Логотип МКурсы"
-              width="48"
-              height="48"
-              className="w-full h-full object-contain filter drop-shadow"
-            />
+          <div className="h-11 w-11 rounded-xl bg-white border border-slate-300 dark:border-slate-700 p-1 flex items-center justify-center overflow-hidden shadow-sm">
+            <img src={logoIcon} alt="Логотип МКурсы" width="40" height="40" className="object-contain" />
           </div>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-indigo-300 transition-colors">
-                МКурсы
-              </span>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-indigo-500/15 text-indigo-300 rounded-full border border-indigo-500/30">
-                LMS
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-400 font-medium">
+          <div className="hidden sm:flex flex-col">
+            <span className="font-extrabold text-lg text-slate-900 dark:text-white group-hover:text-[#0066FF] transition-colors">
+              МКурсы
+            </span>
+            <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
               Центр дополнительного образования
-            </p>
+            </span>
           </div>
         </div>
 
-        <nav className="flex items-center gap-1.5 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800/80 shadow-inner">
-          <button
-            onClick={() => onViewChange('tree')}
-            className={`min-h-[44px] px-4 py-2 text-xs font-semibold rounded-xl flex items-center gap-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 ${
-              currentView === 'tree'
-                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-            }`}
-          >
-            <Compass className="w-4 h-4 text-indigo-300" />
-            Карта знаний
-          </button>
-          <button
-            onClick={() => onViewChange('dashboard')}
-            className={`min-h-[44px] px-4 py-2 text-xs font-semibold rounded-xl flex items-center gap-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 ${
-              currentView === 'dashboard'
-                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-            }`}
-          >
-            <LayoutDashboard className="w-4 h-4 text-emerald-300" />
-            Личный кабинет
-          </button>
-          <button
-            onClick={() => onViewChange('editor')}
-            className={`min-h-[44px] px-4 py-2 text-xs font-semibold rounded-xl flex items-center gap-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 ${
-              currentView === 'editor'
-                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-            }`}
-          >
-            <Edit3 className="w-4 h-4 text-amber-300" />
-            Конструктор
-          </button>
+        <nav className="flex items-center gap-1 bg-slate-100 dark:bg-slate-950 p-1 rounded-xl border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-inner">
+          {allowedViews.map(viewId => {
+            const config = allViewConfigs[viewId];
+            const Icon = config.icon;
+            const isActive = currentView === viewId;
+            return (
+              <button
+                key={viewId}
+                onClick={() => onViewChange(viewId)}
+                className={`min-h-[40px] px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all whitespace-nowrap ${
+                  isActive
+                    ? 'bg-[#0066FF] text-white shadow-md shadow-blue-500/20 font-bold'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800'
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5 shrink-0" />
+                <span>{config.label}</span>
+              </button>
+            );
+          })}
         </nav>
 
-        <div className="flex items-center gap-3.5">
-          <div className="flex items-center gap-3 bg-slate-900/90 border border-slate-800/80 px-4 py-2 rounded-2xl text-xs font-bold shadow-sm">
-            <div className="flex items-center gap-1.5 text-amber-400" title="Стрик активности (дней подряд)">
-              <Flame className="w-4 h-4 fill-amber-400 text-amber-400" />
-              <span>{profile.streakDays} дн</span>
-            </div>
-            <span className="w-px h-4 bg-slate-800" />
-            <div className="flex items-center gap-1.5 text-indigo-400" title="Набранный опыт (XP)">
-              <Zap className="w-4 h-4 fill-indigo-400 text-indigo-400" />
-              <span>{profile.totalXp} XP</span>
-            </div>
-          </div>
-
+        <div className="flex items-center gap-2 sm:gap-3">
+          <RoleDropdown currentUser={currentUser} onSwitchRole={onSwitchRole} />
+          <ThemeToggle />
           <button
-            onClick={onToggleTeacherMode}
-            className={`min-h-[44px] px-4 py-2 rounded-2xl border text-xs font-semibold flex items-center gap-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 ${
-              isTeacherMode
-                ? 'bg-purple-950/60 border-purple-500/50 text-purple-200 shadow-md shadow-purple-950/40'
-                : 'bg-slate-900/90 border-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-800/60'
-            }`}
-            title="Переключить режим интерфейса"
+            onClick={onOpenAuth}
+            aria-label="Авторизация"
+            className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 rounded-xl transition-colors shadow-sm"
           >
-            {isTeacherMode ? (
-              <UserCheck className="w-4 h-4 text-purple-400" />
-            ) : (
-              <GraduationCap className="w-4 h-4 text-indigo-400" />
-            )}
-            <span>{isTeacherMode ? 'Преподаватель' : 'Ученик'}</span>
+            <LogIn className="w-3.5 h-3.5 text-[#0066FF]" />
+            <span className="hidden md:inline">{currentUser ? currentUser.name.split(' ')[0] : 'Вход'}</span>
           </button>
         </div>
       </div>

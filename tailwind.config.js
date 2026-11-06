@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
@@ -19,6 +20,9 @@ export default {
         'glow-amber': '0 0 35px -5px rgba(245, 158, 11, 0.25)',
       },
       colors: {
+        'brand-primary': '#146CC4',
+        'brand-primary-light': '#0DA0E3',
+        'brand-orange': '#FF8800',
         'brand-dark': '#0B132B',
         'brand-navy': '#1C2541',
         'brand-surface': '#243054',

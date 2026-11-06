@@ -12,14 +12,14 @@ export const SkillNodeCard: React.FC<SkillNodeCardProps> = ({ skill, isSelected,
   const getStatusStyles = () => {
     switch (skill.status) {
       case 'mastered':
-        return 'bg-emerald-950/90 border-emerald-400 text-emerald-100 shadow-lg shadow-emerald-500/20 ring-2 ring-emerald-500/40';
+        return 'bg-emerald-50 dark:bg-emerald-950/90 border-emerald-500 dark:border-emerald-400 text-emerald-950 dark:text-emerald-100 shadow-md shadow-emerald-500/10 dark:shadow-emerald-500/20 ring-2 ring-emerald-500/30 dark:ring-emerald-500/40';
       case 'in_progress':
-        return 'bg-indigo-950/90 border-indigo-400 text-indigo-100 shadow-lg shadow-indigo-500/25 ring-2 ring-indigo-500/50 animate-pulse';
+        return 'bg-blue-50 dark:bg-indigo-950/90 border-[#0066FF] dark:border-indigo-400 text-blue-950 dark:text-indigo-100 shadow-md shadow-blue-500/15 dark:shadow-indigo-500/25 ring-2 ring-blue-500/30 dark:ring-indigo-500/50 animate-pulse';
       case 'available':
-        return 'bg-slate-900 border-amber-400/80 text-amber-100 shadow-md shadow-amber-500/10 hover:border-amber-300';
+        return 'bg-amber-50 dark:bg-slate-900 border-amber-400 dark:border-amber-400/80 text-amber-950 dark:text-amber-100 shadow-sm dark:shadow-md hover:border-amber-500 dark:hover:border-amber-300';
       case 'locked':
       default:
-        return 'bg-slate-950 border-slate-800 text-slate-500 opacity-60 hover:opacity-80';
+        return 'bg-slate-100 dark:bg-slate-950 border-slate-300 dark:border-slate-800 text-slate-500 opacity-60 hover:opacity-80';
     }
   };
 
@@ -57,18 +57,18 @@ export const SkillNodeCard: React.FC<SkillNodeCardProps> = ({ skill, isSelected,
       }`}
     >
       <div className={`w-32 p-3.5 rounded-3xl border flex flex-col items-center text-center gap-2 ${getStatusStyles()}`}>
-        <div className="w-9 h-9 rounded-2xl bg-slate-900 border border-inherit flex items-center justify-center">
+        <div className="w-9 h-9 rounded-2xl bg-white dark:bg-slate-900 border border-inherit flex items-center justify-center shadow-xs">
           {getStatusIcon()}
         </div>
         <span className="text-xs font-bold line-clamp-2 leading-snug">
           {skill.title}
         </span>
-        <div className="flex items-center gap-1.5 text-[10px] text-slate-300 pt-1 border-t border-white/5 w-full justify-center">
-          <span className="px-2 py-0.5 rounded-lg bg-slate-800 font-mono font-semibold">
+        <div className="flex items-center gap-1.5 text-[10px] text-slate-600 dark:text-slate-300 pt-1 border-t border-slate-200 dark:border-white/5 w-full justify-center">
+          <span className="px-2 py-0.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono font-semibold">
             {skill.grade} кл
           </span>
-          <span className="font-bold text-amber-400 flex items-center gap-0.5">
-            <Zap className="w-3 h-3 fill-amber-400" />
+          <span className="font-bold text-amber-500 dark:text-amber-400 flex items-center gap-0.5">
+            <Zap className="w-3 h-3 fill-amber-500 dark:fill-amber-400" />
             {skill.xpReward}
           </span>
         </div>

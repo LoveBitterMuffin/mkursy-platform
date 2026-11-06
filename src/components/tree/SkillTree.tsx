@@ -40,14 +40,14 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
 
   return (
     <div
-      className={`relative w-full bg-slate-950 border border-slate-800/80 overflow-hidden shadow-2xl shadow-indigo-950/20 flex flex-col transition-all ${
+      className={`relative w-full bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-xl dark:shadow-2xl flex flex-col transition-all ${
         isFullscreen ? 'fixed inset-0 z-50 h-screen w-screen rounded-none' : 'h-[680px] rounded-3xl'
       }`}
     >
       <div className="absolute top-5 left-5 right-5 z-30 flex flex-wrap items-center justify-between gap-4 pointer-events-none">
-        <div className="flex items-center gap-2 p-2 bg-slate-900/90 border border-slate-700/80 rounded-2xl backdrop-blur-xl shadow-lg pointer-events-auto">
-          <div className="flex items-center gap-1.5 px-2 text-slate-400 font-semibold text-xs">
-            <Filter className="w-4 h-4 text-indigo-400" />
+        <div className="flex items-center gap-2 p-2 bg-white/95 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700/80 rounded-2xl backdrop-blur-xl shadow-lg pointer-events-auto">
+          <div className="flex items-center gap-1.5 px-2 text-slate-500 dark:text-slate-400 font-semibold text-xs">
+            <Filter className="w-4 h-4 text-[#0066FF] dark:text-indigo-400" />
             <span>Разделы:</span>
           </div>
           {categories.map(cat => (
@@ -57,8 +57,8 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
               onClick={() => setSelectedCategory(cat.id)}
               className={`min-h-[44px] px-3.5 py-2 text-xs font-semibold rounded-xl transition-all ${
                 selectedCategory === cat.id
-                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                  ? 'bg-[#0066FF] text-white shadow-md shadow-blue-500/20 font-bold'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80'
               }`}
             >
               {cat.label}
@@ -66,11 +66,11 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
           ))}
         </div>
 
-        <div className="flex items-center gap-1.5 p-1.5 bg-slate-900/90 border border-slate-700/80 rounded-2xl backdrop-blur-xl shadow-lg pointer-events-auto">
+        <div className="flex items-center gap-1.5 p-1.5 bg-white/95 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700/80 rounded-2xl backdrop-blur-xl shadow-lg pointer-events-auto">
           <button
             type="button"
             onClick={() => setZoom(z => Math.min(z + 0.15, 1.6))}
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-xl transition-colors"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded-xl transition-colors"
             title="Увеличить масштаб"
             aria-label="Увеличить масштаб"
           >
@@ -79,7 +79,7 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
           <button
             type="button"
             onClick={() => setZoom(z => Math.max(z - 0.15, 0.6))}
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-xl transition-colors"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded-xl transition-colors"
             title="Уменьшить масштаб"
             aria-label="Уменьшить масштаб"
           >
@@ -88,7 +88,7 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
           <button
             type="button"
             onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-xl transition-colors"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded-xl transition-colors"
             title="Сброс масштаба"
             aria-label="Сбросить масштаб"
           >
@@ -97,7 +97,7 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
           <button
             type="button"
             onClick={() => setIsFullscreen(f => !f)}
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-indigo-400 hover:text-white hover:bg-slate-800/80 rounded-xl transition-colors"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-[#0066FF] dark:text-indigo-400 hover:text-blue-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded-xl transition-colors"
             title={isFullscreen ? 'Выйти из полноэкранного режима' : 'Во весь экран'}
             aria-label={isFullscreen ? 'Выйти из полноэкранного режима' : 'Во весь экран'}
           >
@@ -106,7 +106,7 @@ export const SkillTree: React.FC<SkillTreeProps> = ({ skills, onOpenLesson }) =>
         </div>
       </div>
 
-      <div className="relative flex-1 w-full h-full overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/90 via-slate-950 to-black">
+      <div className="relative flex-1 w-full h-full overflow-hidden bg-slate-50 dark:bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] dark:from-slate-900/90 dark:via-slate-950 dark:to-black">
         <div
           className="absolute inset-0 transition-transform duration-200"
           style={{
